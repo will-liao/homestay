@@ -1,0 +1,66 @@
+@startuml
+participant Actor
+Actor -> AdditionalFeesController : addAdditional
+activate AdditionalFeesController
+AdditionalFeesController -> RoomService : queryRoomByAddress
+activate RoomService
+RoomService -> RoomServiceImpl : queryRoomByAddress
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> AdditionalFeesController
+deactivate RoomService
+AdditionalFeesController -> AdditionalFeesService : addAdditional
+activate AdditionalFeesService
+AdditionalFeesService -> AdditionalFeesServiceImpl : addAdditional
+activate AdditionalFeesServiceImpl
+AdditionalFeesServiceImpl --> AdditionalFeesService
+deactivate AdditionalFeesServiceImpl
+AdditionalFeesService --> AdditionalFeesController
+deactivate AdditionalFeesService
+AdditionalFeesController -> AdditionalFeesService : showRoomAdditional
+activate AdditionalFeesService
+AdditionalFeesService -> AdditionalFeesServiceImpl : showRoomAdditional
+activate AdditionalFeesServiceImpl
+AdditionalFeesServiceImpl -> UserService : getUserIdByName
+activate UserService
+UserService -> UserServiceImpl : getUserIdByName
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> AdditionalFeesServiceImpl
+deactivate UserService
+AdditionalFeesServiceImpl -> AdditionalFeesMapper : showRoomAdditional
+activate AdditionalFeesMapper
+AdditionalFeesMapper --> AdditionalFeesServiceImpl
+deactivate AdditionalFeesMapper
+AdditionalFeesServiceImpl --> AdditionalFeesService
+deactivate AdditionalFeesServiceImpl
+AdditionalFeesService --> AdditionalFeesController
+deactivate AdditionalFeesService
+AdditionalFeesController -> RoomService : queryMyRooms
+activate RoomService
+RoomService -> RoomServiceImpl : queryMyRooms
+activate RoomServiceImpl
+RoomServiceImpl -> UserService : getUserIdByName
+activate UserService
+UserService -> UserServiceImpl : getUserIdByName
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> RoomServiceImpl
+deactivate UserService
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> AdditionalFeesController
+deactivate RoomService
+AdditionalFeesController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> AdditionalFeesController
+deactivate UserService
+return
+@enduml

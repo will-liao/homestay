@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> UserController : resetMessage
+activate UserController
+UserController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> UserController
+deactivate UserService
+UserController -> UserService : updateUser
+activate UserService
+UserService -> UserServiceImpl : updateUser
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> UserController
+deactivate UserService
+UserController -> UserService : getUserById
+activate UserService
+UserService -> UserServiceImpl : getUserById
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> UserController
+deactivate UserService
+return
+@enduml

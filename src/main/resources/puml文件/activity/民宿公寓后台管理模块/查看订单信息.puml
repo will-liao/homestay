@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+/'租客点击订单信息，系统根据租客id返回该租客的所有订单信息，返回订单详情页面'/
+start
+:租客点击订单信息;
+:系统根据租客id返回该租客的所有订单信息;
+:订单详情页面;
+stop
+
+@enduml

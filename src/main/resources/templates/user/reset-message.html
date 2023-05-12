@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="../../../static/img/favicon.png">
+
+    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="../../../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="../../../static/css/style.css" rel="stylesheet">
+    <link href="../../../static/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../../static/js/html5shiv.js"></script>
+    <script src="../../../static/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+  <body class="login-body">
+
+    <div class="container">
+
+      <form class="form-signin" th:action="@{/homestay/user/register}" method="post">
+        <h2 class="form-signin-heading">立即注册</h2>
+          <h4 style="color: red;text-align: center" th:text="${message.getMessage()}"></h4>
+        <div class="login-wrap">
+            <p>请在下面输入你的个人详细信息</p>
+            <input type="text" class="form-control" placeholder="用户名" name="username" autofocus>
+            <input type="password" class="form-control" placeholder="密码" name="password">
+            <input type="password" class="form-control" placeholder="确认密码">
+            <input type="text" class="form-control" placeholder="身份证号码" name="identityCard" autofocus>
+            <input type="text" class="form-control" placeholder="手机号" name="phone" autofocus>
+            <input type="text" class="form-control" placeholder="邮箱" name="mail" autofocus>
+
+            <div class="radios">
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
+                    <input name="sex" id="radio-01" value="1" type="radio" checked /> 男
+                </label>
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
+                    <input name="sex" id="radio-02" value="1" type="radio" /> 女
+                </label>
+            </div>
+
+            <div class="radios">
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-03">
+                    <input name="userType" id="radio-03" value="0" type="radio" th:value="ROLE_COMMON" checked /> 普通用户
+                </label>
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-04">
+                    <input name="userType" id="radio-04" value="1" type="radio" th:value="ROLE_LANDLORD" /> 房东
+                </label>
+            </div>
+
+            <button class="btn btn-lg btn-login btn-block" type="submit">提交</button>
+
+            <div class="registration" style="text-align: right" >
+                已经注册？
+                <a class="" href="/toLogin">
+                    点击登录
+                </a>
+            </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </body>
+</html>

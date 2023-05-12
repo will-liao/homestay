@@ -1,0 +1,18 @@
+@startuml
+participant Actor
+Actor -> RoomController : toUpdateRoom
+activate RoomController
+RoomController -> RoomService : queryRoomById
+activate RoomService
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> RoomController
+deactivate UserService
+return
+@enduml

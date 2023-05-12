@@ -1,0 +1,34 @@
+@startuml
+participant Actor
+Actor -> OrderController : tuiFang
+activate OrderController
+OrderController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> OrderController
+deactivate UserService
+OrderController -> OrderDetailService : tuiFang
+activate OrderDetailService
+OrderDetailService -> OrderDetailServiceImpl : tuiFang
+activate OrderDetailServiceImpl
+OrderDetailServiceImpl --> OrderDetailService
+deactivate OrderDetailServiceImpl
+OrderDetailService --> OrderController
+deactivate OrderDetailService
+OrderController -> OrderDetailService : queryOrders
+activate OrderDetailService
+OrderDetailService -> OrderDetailServiceImpl : queryOrders
+activate OrderDetailServiceImpl
+OrderDetailServiceImpl -> OrderDetailMapper : queryOrders
+activate OrderDetailMapper
+OrderDetailMapper --> OrderDetailServiceImpl
+deactivate OrderDetailMapper
+OrderDetailServiceImpl --> OrderDetailService
+deactivate OrderDetailServiceImpl
+OrderDetailService --> OrderController
+deactivate OrderDetailService
+return
+@enduml

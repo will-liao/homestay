@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> UserController : toCommonUserIndex
+activate UserController
+UserController -> UserService : selectUserByUsername
+activate UserService
+UserService --> UserController
+deactivate UserService
+UserController -> RoomService : queryRooms
+activate RoomService
+RoomService -> RoomServiceImpl : queryRooms
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> UserController
+deactivate RoomService
+UserController -> RoomService : bestSellTop
+activate RoomService
+RoomService -> RoomServiceImpl : bestSellTop
+activate RoomServiceImpl
+RoomServiceImpl -> RoomMapper : bestSellTop
+activate RoomMapper
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> UserController
+deactivate RoomService
+return
+@enduml

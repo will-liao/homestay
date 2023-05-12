@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+/'点击报表显示页面，系统封装日报表和月报表信息，返回报表显示页面'/
+start
+:点击报表显示页面;
+:系统封装日报表和月报表信息;
+:返回报表显示页面;
+stop
+
+@enduml

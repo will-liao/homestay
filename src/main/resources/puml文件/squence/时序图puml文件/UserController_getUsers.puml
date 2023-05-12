@@ -1,0 +1,14 @@
+@startuml
+participant Actor
+Actor -> UserController : getUsers
+activate UserController
+UserController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> UserController
+deactivate UserService
+return
+@enduml

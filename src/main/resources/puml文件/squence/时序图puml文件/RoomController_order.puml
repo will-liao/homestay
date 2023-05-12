@@ -1,0 +1,82 @@
+@startuml
+participant Actor
+Actor -> RoomController : order
+activate RoomController
+RoomController -> UserService : selectUserByUsername
+activate UserService
+UserService --> RoomController
+deactivate UserService
+RoomController -> RoomService : queryRoomsOrderByPriceDesc
+activate RoomService
+RoomService -> RoomServiceImpl : queryRoomsOrderByPriceDesc
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : bestSellTop
+activate RoomService
+RoomService -> RoomServiceImpl : bestSellTop
+activate RoomServiceImpl
+RoomServiceImpl -> RoomMapper : bestSellTop
+activate RoomMapper
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : queryRoomsOrderByPriceAsc
+activate RoomService
+RoomService -> RoomServiceImpl : queryRoomsOrderByPriceAsc
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : bestSellTop
+activate RoomService
+RoomService -> RoomServiceImpl : bestSellTop
+activate RoomServiceImpl
+RoomServiceImpl -> RoomMapper : bestSellTop
+activate RoomMapper
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : bestSellTop
+activate RoomService
+RoomService -> RoomServiceImpl : bestSellTop
+activate RoomServiceImpl
+RoomServiceImpl -> RoomMapper : bestSellTop
+activate RoomMapper
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : bestSellTop
+activate RoomService
+RoomService -> RoomServiceImpl : bestSellTop
+activate RoomServiceImpl
+RoomServiceImpl -> RoomMapper : bestSellTop
+activate RoomMapper
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+RoomController -> RoomService : queryRooms
+activate RoomService
+RoomService -> RoomServiceImpl : queryRooms
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> RoomController
+deactivate RoomService
+return
+@enduml

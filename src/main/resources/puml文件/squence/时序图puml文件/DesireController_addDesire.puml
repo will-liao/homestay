@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> DesireController : addDesire
+activate DesireController
+DesireController -> UserService : selectUserByUsername
+activate UserService
+UserService --> DesireController
+deactivate UserService
+DesireController -> UserService : getUserIdByName
+activate UserService
+UserService --> DesireController
+deactivate UserService
+DesireController -> DesireService : addDesire
+activate DesireService
+DesireService -> DesireServiceImpl : addDesire
+activate DesireServiceImpl
+DesireServiceImpl --> DesireService
+deactivate DesireServiceImpl
+DesireService --> DesireController
+deactivate DesireService
+DesireController -> RoomService : queryRoomById
+activate RoomService
+RoomService -> RoomServiceImpl : queryRoomById
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> DesireController
+deactivate RoomService
+return
+@enduml

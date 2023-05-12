@@ -1,0 +1,22 @@
+@startuml
+participant Actor
+Actor -> AdvertiseController : updateAdvertise
+activate AdvertiseController
+AdvertiseController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> AdvertiseController
+deactivate UserService
+AdvertiseController -> AdvertiseService : updateAdvertise
+activate AdvertiseService
+AdvertiseService -> AdvertiseServiceImpl : updateAdvertise
+activate AdvertiseServiceImpl
+AdvertiseServiceImpl --> AdvertiseService
+deactivate AdvertiseServiceImpl
+AdvertiseService --> AdvertiseController
+deactivate AdvertiseService
+return
+@enduml

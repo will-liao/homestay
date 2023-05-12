@@ -1,0 +1,38 @@
+@startuml
+participant Actor
+Actor -> OrderController : showOrders
+activate OrderController
+OrderController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> OrderController
+deactivate UserService
+OrderController -> UserService : getUserIdByName
+activate UserService
+UserService -> UserServiceImpl : getUserIdByName
+activate UserServiceImpl
+UserServiceImpl -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserServiceImpl
+deactivate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> OrderController
+deactivate UserService
+OrderController -> OrderDetailService : queryOrders
+activate OrderDetailService
+OrderDetailService -> OrderDetailServiceImpl : queryOrders
+activate OrderDetailServiceImpl
+OrderDetailServiceImpl -> OrderDetailMapper : queryOrders
+activate OrderDetailMapper
+OrderDetailMapper --> OrderDetailServiceImpl
+deactivate OrderDetailMapper
+OrderDetailServiceImpl --> OrderDetailService
+deactivate OrderDetailServiceImpl
+OrderDetailService --> OrderController
+deactivate OrderDetailService
+return
+@enduml

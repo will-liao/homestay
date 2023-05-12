@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+/'点击用户管理页面，向系统请求租客和房东信息，封装返回信息，跳转到用户管理界面'/
+start
+:点击用户管理页面;
+:向系统请求租客和房东信息;
+:封装返回信息;
+:跳转到用户管理界面;
+stop
+
+@enduml

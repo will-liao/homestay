@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+/'租客进入订单详情页面后，点击退房，系统更改房间状态，若更改成功，则解锁评论功能，并返回订单详情界面，若更改失败，则返回错误信息'/
+start
+:租客进入订单详情页面;
+:点击退房;
+if(系统更改房间状态) then (成功)
+:解锁评论功能;
+:返回订单详情界面;
+else (失败)
+:返回错误信息;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+participant Actor
+Actor -> OrderCommentController : comment
+activate OrderCommentController
+OrderCommentController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> OrderCommentController
+deactivate UserService
+OrderCommentController -> OrderCommentService : addComment
+activate OrderCommentService
+OrderCommentService -> OrderCommentServiceImpl : addComment
+activate OrderCommentServiceImpl
+create Message
+OrderCommentServiceImpl -> Message : new
+activate Message
+Message --> OrderCommentServiceImpl
+deactivate Message
+OrderCommentServiceImpl --> OrderCommentService
+deactivate OrderCommentServiceImpl
+OrderCommentService --> OrderCommentController
+deactivate OrderCommentService
+OrderCommentController -> OrderDetailService : queryOrders
+activate OrderDetailService
+OrderDetailService -> OrderDetailServiceImpl : queryOrders
+activate OrderDetailServiceImpl
+OrderDetailServiceImpl -> OrderDetailMapper : queryOrders
+activate OrderDetailMapper
+OrderDetailMapper --> OrderDetailServiceImpl
+deactivate OrderDetailMapper
+OrderDetailServiceImpl --> OrderDetailService
+deactivate OrderDetailServiceImpl
+OrderDetailService --> OrderCommentController
+deactivate OrderDetailService
+return
+@enduml

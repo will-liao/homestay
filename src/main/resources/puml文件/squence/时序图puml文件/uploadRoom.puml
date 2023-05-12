@@ -1,0 +1,30 @@
+@startuml
+participant Actor
+Actor -> RoomController : uploadRoom
+activate RoomController
+RoomController -> UserService : getUserIdByName
+activate UserService
+UserService --> RoomController
+deactivate UserService
+RoomController -> RoomService : uploadRoom
+activate RoomService
+RoomService -> RoomServiceImpl : uploadRoom
+activate RoomServiceImpl
+/'RoomServiceImpl调用RoomMapper，并使用其insert方法将room对象插入tb_room表'/
+RoomServiceImpl -> RoomMapper : insert
+activate RoomMapper
+/'RoomMapper访问数据库DATABASE，并将room插入数据库'/
+RoomMapper -> DATABASE : insert
+activate DATABASE
+DATABASE --> RoomMapper :message
+deactivate DATABASE
+RoomMapper --> RoomServiceImpl :message
+deactivate RoomMapper
+RoomServiceImpl --> RoomService :message
+deactivate RoomServiceImpl
+RoomService --> RoomController :message
+deactivate RoomService
+/'返回上传成功'/
+RoomController -> Actor :message
+deactivate RoomController
+@enduml

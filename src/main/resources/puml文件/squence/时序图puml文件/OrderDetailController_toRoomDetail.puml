@@ -1,0 +1,34 @@
+@startuml
+participant Actor
+Actor -> OrderDetailController : toRoomDetail
+activate OrderDetailController
+OrderDetailController -> RoomService : queryRoomById
+activate RoomService
+RoomService -> RoomServiceImpl : queryRoomById
+activate RoomServiceImpl
+RoomServiceImpl --> RoomService
+deactivate RoomServiceImpl
+RoomService --> OrderDetailController
+deactivate RoomService
+OrderDetailController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> OrderDetailController
+deactivate UserService
+OrderDetailController -> OrderCommentService : getRoomComment
+activate OrderCommentService
+OrderCommentService -> OrderCommentServiceImpl : getRoomComment
+activate OrderCommentServiceImpl
+OrderCommentServiceImpl -> OrderCommentMapper : getRoomComment
+activate OrderCommentMapper
+OrderCommentMapper --> OrderCommentServiceImpl
+deactivate OrderCommentMapper
+OrderCommentServiceImpl --> OrderCommentService
+deactivate OrderCommentServiceImpl
+OrderCommentService --> OrderDetailController
+deactivate OrderCommentService
+return
+@enduml

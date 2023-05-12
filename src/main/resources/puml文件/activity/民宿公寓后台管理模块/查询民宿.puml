@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+/'点击民宿列表，系统返回所有的民宿信息，跳转到民宿列表界面'/
+start
+
+:点击民宿列表;
+:系统查询所有民宿信息;
+:返回所有民宿信息;
+:跳转到民宿列表界面;
+stop
+
+@enduml

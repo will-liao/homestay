@@ -1,0 +1,14 @@
+@startuml
+participant Actor
+Actor -> ReportController : getDayReport
+activate ReportController
+ReportController -> UserService : selectUserByUsername
+activate UserService
+UserService -> UserServiceImpl : selectUserByUsername
+activate UserServiceImpl
+UserServiceImpl --> UserService
+deactivate UserServiceImpl
+UserService --> ReportController
+deactivate UserService
+return
+@enduml

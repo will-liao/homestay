@@ -1,11 +1,18 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+/'用户在客户端上输入用户名和密码并点击登录按钮。客户端发送登录请求到服务器端。服务器端接收并验证用户的登录信息。服务器端返回登录验证结果给客户端。客户端接收并判断登录结果是否正确。如果登录成功，则客户端跳转到用户个人主页页面；如果登录失败，则客户端弹出相应的提示信息。'/
+actor 用户
+participant 客户端
+participant 服务器端
+activate 客户端
+用户 -> 客户端: 输入用户名和密码
+客户端 -> 服务器端: 发送登录请求
+activate 服务器端
+服务器端 -> 服务器端: 验证用户的登录信息
+服务器端 -> 客户端: 返回登录验证结果
+deactivate 服务器端
+客户端 -> 客户端: 判断登录结果是否正确
+客户端 -> 用户: 跳转到用户个人主页页面
+deactivate 客户端
 
-autonumber
-
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
 @enduml

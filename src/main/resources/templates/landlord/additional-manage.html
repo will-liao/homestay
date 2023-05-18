@@ -302,31 +302,23 @@
           </ul>
           </div>
           <div class="top-nav ">
+              <!--search & user info start-->
               <ul class="nav pull-right top-menu">
-                  <li>
-                      <input type="text" class="form-control search" placeholder="Search">
-                  </li>
                   <!-- user login dropdown start-->
                   <li class="dropdown">
                       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                          <img alt="" src="img/avatar1_small.jpg">
-                          <span class="username">Jhon Doue</span>
+                          <img alt=""  style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
+                          <span class="username" th:text="${user.getUsername()}"></span>
                           <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu extended logout">
                           <div class="log-arrow-up"></div>
-                          <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                          <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                          <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                          <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                          <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
                       </ul>
                   </li>
-
                   <!-- user login dropdown end -->
-                  <li class="sb-toggle-right">
-                      <i class="fa  fa-align-right"></i>
-                  </li>
               </ul>
+              <!--search & user info end-->
           </div>
       </header>
       <!--header end-->
@@ -349,13 +341,13 @@
                       </a>
                       <ul class="sub">
                           <li><a  th:href="@{/homestay/room/toRoomList}">我的房屋</a></li>
-                          <li class="active"><a  th:href="@{/homestay/room/uploadRoom}">上传房屋</a></li>
-                          <li><a  href="header-color.html">房屋评论</a></li>
+                          <li><a  th:href="@{/homestay/room/uploadRoom}">上传房屋</a></li>
+                          <li class="active"><a  th:href="@{/homestay/additional-fees/toAdditional}">附加物品</a></li>
                       </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a th:href="@{/homestay/order/showOrdersbyLandlordId}" >
                           <i class="fa fa-book"></i>
                           <span>订单管理</span>
                       </a>
@@ -364,7 +356,7 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cogs"></i>
-                          <span>房屋评论</span>
+                          <span>我的消息</span>
                       </a>
                   </li>
 
@@ -384,61 +376,56 @@
                   <div class="panel-body" th:text="${message}" style="text-align: center;color: #c9302c;font-size: medium">
                   </div>
               </div>
+              <div class="col-sm-6">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          附加物品清单
+                      </header>
+                      <table class="table table-hover">
+                          <thead>
+                          <tr>
+                              <th>民宿名称</th>
+                              <th>附加物品名称</th>
+                              <th>附加金额</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr th:each="additional:${showAdditionals}">
+                              <td th:text="${additional.getRoomAddress()}"></td>
+                              <td th:text="${additional.getFeesName()}"></td>
+                              <td th:text="${additional.getAddPrice()+'￥'}"></td>
+
+                          </tr>
+                          </tbody>
+                      </table>
+                  </section>
+              </div>
 
               <div class="row">
-                  <div class="col-lg-offset-3 col-lg-6">
+                  <div class="col-lg-6">
                       <section class="panel">
                           <header class="panel-heading" style="text-align: center">
-                              请输入民宿相关信息
+                              请输入附加物品相关信息
                           </header>
                           <div class="panel-body">
-                              <form role="form" th:action="@{/homestay/room/uploadRoom}" method="post" enctype="multipart/form-data">
+                              <form role="form" th:action="@{/homestay/additional-fees/add-additional}" method="post">
                                   <div class="form-group">
-                                      <label for="roomAddress">民宿地址</label>
-                                      <input type="text" name="roomAddress" class="form-control" id="roomAddress" placeholder="请输入地址" value="广东海洋大学">
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label" for="roomDescrible">民宿描述</label>
-                                      <textarea class="form-control" name="roomDescrible" id="roomDescrible" rows="3" placeholder="请输入文字描述您的民宿">最早入住时间14:00)(最晚入住时间次日03:00)(最晚退房时间12:00</textarea>
-                                  </div>
-                                  <div class="form-group">
-                                      <label>民宿类型</label>
-                                      <select class="form-control" name="roomType">
-                                          <option selected>常规一室一厅</option>
-                                          <option>豪华一室一厅</option>
-                                          <option>海景一室一厅</option>
-                                          <option>常规两室一厅</option>
-                                          <option>豪华两室一厅</option>
-                                          <option>海景两室一厅</option>
-                                          <option>常规三室一厅</option>
-                                          <option>豪华三室一厅</option>
-                                          <option>海景三室一厅</option>
+                                      <label>民宿地址</label>
+
+                                      <select class="form-control" name="roomAddress">
+                                          <option th:each="room:${rooms}" th:value="${room.getRoomAddress()}" th:text="${room.getRoomAddress()}"></option>
                                       </select>
                                   </div>
-                                  <div class="form-group col-lg-6">
-                                      <label for="roomPrice">民宿价格</label>
-                                      <input type="text" value="108" name="roomPrice" class="form-control" id="roomPrice" placeholder="单位￥">
+                                  <div class="form-group">
+                                      <label for="additional">附加物品名称</label>
+                                      <input type="text" name="feesName" class="form-control" id="additional" placeholder="请输入地址" value="农夫山泉">
                                   </div>
-                                  <div class="form-group col-lg-6">
-                                      <label for="roomSize">民宿大小</label>
-                                      <input type="text" value="28" name="roomSize" class="form-control" id="roomSize" placeholder="单位m³">
+                                  <div class="form-group">
+                                      <label for="fees">附加金额</label>
+                                      <input type="text" name="addPrice" class="form-control" id="fees" placeholder="单位￥" value="2">
                                   </div>
 
-                                  <div class="form-group col-lg-offset-4">
-                                      <div class="fileupload fileupload-new" data-provides="fileupload">
-                                          <div class="fileupload-new thumbnail"  id="imagePreview"  style="width: 200px; height: 150px;">
-                                              <img id="imgid" src="../../../static/img/500_icon.png" alt="" />
-                                          </div>
-                                          <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                          <div>
-                                                   <span class="btn btn-white btn-file">
-                                                   <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片</span>
-                                                   <input id="imageInput" onchange="loadImageFile();" name="file" type="file" class="default" />
-                                                   </span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                      <button type="submit" class="btn btn-info col-lg-offset-5">确认上传</button>
+                                      <button type="submit" class="btn btn-info col-lg-offset-5">添加</button>
                               </form>
 
                           </div>

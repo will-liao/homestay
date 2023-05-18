@@ -1,22 +1,23 @@
 @startuml
 'https://plantuml.com/use-case-diagram
+/'房东登录民宿后台管理系统后能够使用添加民宿信息、修改民宿信息、查看民宿信息、删除民宿信息、管理民宿图片、添加附加物品功能。管理员和房东都可以登录后台管理系统、查看民宿评论，查看民宿信息'/
+left to right direction
+skinparam packageStyle rectangle
+actor 房东
+actor 管理员
+rectangle 民宿管理模块{
+  房东 --> (添加民宿信息)
+  房东 --> (修改民宿信息)
+  房东 --> (查看民宿信息)
+  房东 --> (删除民宿信息)
+  房东 --> (管理民宿图片)
+  房东 --> (添加附加物品)
+  房东 --> (查看民宿评论)
+  房东 --> (查看民宿信息)
+  房东 --> (登录后台管理系统)
+  管理员 --> (登录后台管理系统)
+  管理员 --> (查看民宿评论)
+  管理员 --> (查看民宿信息)
+}
 
-:Main Admin: as Admin
-(Use the application) as (Use)
-
-User -> (Start)
-User --> (Use)
-
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
 @enduml

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -48,7 +50,7 @@ public class OrderDetail implements Serializable {
     private Integer roomId;
 
     /**
-     * 房间状态 -0 未预定 -1已预定
+     * 房间状态 -0 未退房 -1已退房
      */
     private Boolean orderCondition;
 
@@ -65,12 +67,12 @@ public class OrderDetail implements Serializable {
     /**
      * 入住时间
      */
-    private LocalDateTime startTime;
+    private Date startTime;
 
     /**
      * 离店时间
      */
-    private LocalDateTime endTime;
+    private Date endTime;
 
 
 }

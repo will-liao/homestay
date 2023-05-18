@@ -6,6 +6,16 @@ UserController -> UserService : register
 activate UserService
 UserService -> UserServiceImpl : register
 activate UserServiceImpl
+
+UserServiceImpl -> UserMapper : insertUser
+activate UserMapper
+UserMapper -> DATABASE : insertUser
+activate DATABASE
+DATABASE --> UserMapper
+deactivate DATABASE
+UserMapper --> UserServiceImpl
+deactivate UserMapper
+
 UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> UserController

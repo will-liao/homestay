@@ -24,6 +24,10 @@ OrderCommentService -> OrderCommentServiceImpl : getRoomComment
 activate OrderCommentServiceImpl
 OrderCommentServiceImpl -> OrderCommentMapper : getRoomComment
 activate OrderCommentMapper
+OrderCommentMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> OrderCommentMapper
+deactivate DATABASE
 OrderCommentMapper --> OrderCommentServiceImpl
 deactivate OrderCommentMapper
 OrderCommentServiceImpl --> OrderCommentService

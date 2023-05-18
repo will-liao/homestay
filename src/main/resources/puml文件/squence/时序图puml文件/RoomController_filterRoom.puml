@@ -12,6 +12,10 @@ RoomService -> RoomServiceImpl : filterRoom
 activate RoomServiceImpl
 RoomServiceImpl -> RoomMapper : filterRoom
 activate RoomMapper
+RoomMapper -> DATABASE : selectRoomByFilter
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
 RoomMapper --> RoomServiceImpl
 deactivate RoomMapper
 RoomServiceImpl --> RoomService

@@ -2,6 +2,7 @@ package com.will.homestay.mapper;
 
 import com.will.homestay.entity.Desire;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>

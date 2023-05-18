@@ -34,6 +34,16 @@ OrderDetailController -> RoomService : queryRoomById
 activate RoomService
 RoomService -> RoomServiceImpl : queryRoomById
 activate RoomServiceImpl
+
+RoomServiceImpl -> RoomMapper : queryRoomById
+activate RoomMapper
+RoomMapper -> DATABASE : queryRoomById
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+
 RoomServiceImpl --> RoomService
 deactivate RoomServiceImpl
 RoomService --> OrderDetailController

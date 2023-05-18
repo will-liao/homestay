@@ -1,22 +1,12 @@
 @startuml
 'https://plantuml.com/use-case-diagram
-
-:Main Admin: as Admin
-(Use the application) as (Use)
-
-User -> (Start)
-User --> (Use)
-
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
+/'管理员登录民宿后台管理系统后能够使用用户管理模块中的所有功能，包括查看所有用户信息、删除用户等功能。'/
+left to right direction
+skinparam packageStyle rectangle
+actor 管理员
+rectangle 订单管理模块{
+    管理员 --> (订单管理)
+    (订单管理) --> (查看所有订单信息)
+    (订单管理) --> (删除订单)
+}
 @enduml

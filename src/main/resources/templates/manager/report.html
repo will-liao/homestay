@@ -282,57 +282,31 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
-                      <a class="active" href="index.html">
+                      <a th:href="@{/homestay/user/toManager-user-index}">
                           <i class="fa fa-dashboard"></i>
-                          <span>Dashboard</span>
+                          <span>首页</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a th:href="@{/homestay/advertise/getAllAdvertise}" >
                           <i class="fa fa-laptop"></i>
                           <span>广告管理</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="../user/mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
-                      </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a th:href="@{/homestay/user/getUsers}" >
                           <i class="fa fa-book"></i>
                           <span>用户管理</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="general.html">General</a></li>
-                          <li><a  href="buttons.html">Buttons</a></li>
-                          <li><a  href="modal.html">Modal</a></li>
-                          <li><a  href="toastr.html">Toastr Notifications</a></li>
-                          <li><a  href="widget.html">Widget</a></li>
-                          <li><a  href="slider.html">Slider</a></li>
-                          <li><a  href="nestable.html">Nestable</a></li>
-                          <li><a  href="font_awesome.html">Font Awesome</a></li>
-                      </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a class="active" th:href="@{/homestay/report/getReport}">
                           <i class="fa fa-cogs"></i>
                           <span>报表</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="grids.html">Grids</a></li>
-                          <li><a  href="calendar.html">Calendar</a></li>
-                          <li><a  href="gallery.html">Gallery</a></li>
-                          <li><a  href="todo_list.html">Todo List</a></li>
-                          <li><a  href="draggable_portlet.html">Draggable Portlet</a></li>
-                          <li><a  href="tree.html">Tree View</a></li>
-                      </ul>
                   </li>
               </ul>
               <!-- sidebar menu end-->
@@ -343,86 +317,52 @@
       <section id="main-content">
           <section class="wrapper site-min-height">
               <!-- page start-->
-              //提示信息
-              <div class="panel panel-success" style="opacity: 1;">
-                  <div class="panel-heading" style="font-size: large">Tips</div>
-                  <!--<div th:if="${session.msg}" class="panel-body" style="text-align: center;color: #c9302c;font-size: medium" th:text="${session.msg}"></div>-->
-                  <div class="panel-body" th:text="${message}" style="text-align: center;color: #c9302c;font-size: medium">
-                  </div>
-              </div>
-
               <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-sm-6">
                       <section class="panel">
                           <header class="panel-heading">
-                              我的民宿
+                              日报表
                           </header>
-                          <table class="table table-striped table-advance table-hover" style="table-layout: fixed">
+                          <table class="table">
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-bullhorn"></i> 民宿地址</th>
-                                  <th><i class="fa fa-bullhorn"></i> 民宿类型</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> 民宿描述</th>
-                                  <th><i class="fa fa-bookmark"></i> 民宿价格</th>
-                                  <th><i class=" fa fa-edit"></i> 民宿大小</th>
-                                  <th><i class=" fa fa-edit"></i> 民宿状态</th>
-                                  <th><i class=" fa fa-edit"></i> 操作</th>
+                                  <th>时间</th>
+                                  <th>日订单量</th>
+                                  <th>日收入</th>
+                                  <th>日入住人数</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr th:each="myRoom:${myRooms}">
-                                  <td th:text="${myRoom.getRoomAddress()}"></td>
-                                  <td th:text="${myRoom.getRoomType()}"></td>
-                                  <td style="width: 100px" th:text="${myRoom.getRoomDescrible()}"></td>
-                                  <td th:text="${myRoom.getRoomPrice()+'￥'}"></td>
-                                  <td th:text="${myRoom.getRoomSize()+'㎡'}"></td>
-                                  <td th:if="${myRoom.getRoomCondition()==false}"><span class="label label-success label-mini">可预定</span></td>
-                                  <td th:if="${myRoom.getRoomCondition()==true}"><span class="label label-danger label-mini">已预定</span></td>
-                                  <td>
-                                      <button disabled th:if="${myRoom.getRoomCondition() == true}" class="btn btn-primary btn-xs"><i class="fa fa-mail-forward (alias)">&nbsp;<a href="#" style="color: #FFFFFF">修改</a></i></button>
-                                      <button th:if="${myRoom.getRoomCondition() == false}" class="btn btn-primary btn-xs"><i class="fa fa-mail-forward (alias)">&nbsp;<a th:href="@{/homestay/room/toUpdateRoom(roomId=${myRoom.getRoomId()})}" style="color: #FFFFFF">修改</a></i></button>
-                                      <button disabled th:if="${myRoom.getRoomCondition() == true}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o">&nbsp;<a href="#" style="color: #FFFFFF">删除</a></i></button>
-                                      <button th:if="${myRoom.getRoomCondition() == false}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o">&nbsp;<a th:href="@{/homestay/room/deleteRoom(roomId=${myRoom.getRoomId()})}" style="color: #FFFFFF">删除</a></i></button>
-                                  </td>
+                              <tr th:each="day:${dayData}">
+                                  <td th:text="${#dates.format(day.getDate(),'yyyy-MM-dd')}"></td>
+                                  <td th:text="${day.getDayOrder()}"></td>
+                                  <td th:text="${day.getDayIncome()}"></td>
+                                  <td th:text="${day.getDayLiving()}"></td>
                               </tr>
                               </tbody>
                           </table>
                       </section>
                   </div>
-              </div>
-              <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-sm-6">
                       <section class="panel">
                           <header class="panel-heading">
-                              我的民宿
+                              月报表
                           </header>
-                          <table class="table table-striped table-advance table-hover" style="table-layout: fixed">
+                          <table class="table">
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-bullhorn"></i> 民宿地址</th>
-                                  <th><i class="fa fa-bullhorn"></i> 民宿类型</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> 民宿描述</th>
-                                  <th><i class="fa fa-bookmark"></i> 民宿价格</th>
-                                  <th><i class=" fa fa-edit"></i> 民宿大小</th>
-                                  <th><i class=" fa fa-edit"></i> 民宿状态</th>
-                                  <th><i class=" fa fa-edit"></i> 操作</th>
+                                  <th>日期</th>
+                                  <th>月订单量</th>
+                                  <th>月收入</th>
+                                  <th>月入住人数</th>
                               </tr>
                               </thead>
                               <tbody>
-                              <tr th:each="myRoom:${myRooms}">
-                                  <td th:text="${myRoom.getRoomAddress()}"></td>
-                                  <td th:text="${myRoom.getRoomType()}"></td>
-                                  <td style="width: 100px" th:text="${myRoom.getRoomDescrible()}"></td>
-                                  <td th:text="${myRoom.getRoomPrice()+'￥'}"></td>
-                                  <td th:text="${myRoom.getRoomSize()+'㎡'}"></td>
-                                  <td th:if="${myRoom.getRoomCondition()==false}"><span class="label label-success label-mini">可预定</span></td>
-                                  <td th:if="${myRoom.getRoomCondition()==true}"><span class="label label-danger label-mini">已预定</span></td>
-                                  <td>
-                                      <button disabled th:if="${myRoom.getRoomCondition() == true}" class="btn btn-primary btn-xs"><i class="fa fa-mail-forward (alias)">&nbsp;<a href="#" style="color: #FFFFFF">修改</a></i></button>
-                                      <button th:if="${myRoom.getRoomCondition() == false}" class="btn btn-primary btn-xs"><i class="fa fa-mail-forward (alias)">&nbsp;<a th:href="@{/homestay/room/toUpdateRoom(roomId=${myRoom.getRoomId()})}" style="color: #FFFFFF">修改</a></i></button>
-                                      <button disabled th:if="${myRoom.getRoomCondition() == true}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o">&nbsp;<a href="#" style="color: #FFFFFF">删除</a></i></button>
-                                      <button th:if="${myRoom.getRoomCondition() == false}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o">&nbsp;<a th:href="@{/homestay/room/deleteRoom(roomId=${myRoom.getRoomId()})}" style="color: #FFFFFF">删除</a></i></button>
-                                  </td>
+                              <tr th:each="mouth:${mouthData}">
+                                  <td th:text="${#dates.format(mouth.getDate(),'yyyy-MM-dd')}"></td>
+                                  <td th:text="${mouth.getMouthOrder()}"></td>
+                                  <td th:text="${mouth.getMouthIncome()}"></td>
+                                  <td th:text="${mouth.getMouthLiving()}"></td>
                               </tr>
                               </tbody>
                           </table>

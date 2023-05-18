@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.will.homestay.mapper.OrderDetailMapper">
+    <select id="queryOrders" resultType="com.will.homestay.pojo.ShowOrder">
+        SELECT tb_order_detail.`order_id`,tb_order_detail.`user_id`,tb_order_detail.`room_id`,tb_order_detail.`landlord_id`,tb_room.`room_address`,tb_room.`room_type`,
+               tb_order_detail.`pay`,tb_order_detail.`start_time`,tb_order_detail.`end_time`,tb_user.`phone`,tb_order_detail.`order_condition`,tb_room.`room_condition`
+        FROM tb_order_detail,tb_user,tb_room
+        WHERE (tb_order_detail.`landlord_id` = tb_user.`user_id`) AND (tb_order_detail.`room_id` = tb_room.`room_id`) and (tb_order_detail.`user_id` = #{userId})
+    </select>
+    <!--根据房东id查询其所有订单的信息包括民宿地址，民宿类型，房客电话，使用时间，结束时间，民宿价格,房间状态-->
+<select id="queryOrdersByLandlordId" resultType="com.will.homestay.pojo.ShowOrder">
+        SELECT tb_order_detail.`order_id`,tb_order_detail.`user_id`,tb_order_detail.`room_id`,tb_order_detail.`landlord_id`,tb_room.`room_address`,tb_room.`room_type`,
+               tb_order_detail.`pay`,tb_order_detail.`start_time`,tb_order_detail.`end_time`,tb_user.`phone`,tb_order_detail.`order_condition`,tb_room.`room_condition`
+        FROM tb_order_detail,tb_user,tb_room
+        WHERE (tb_order_detail.`landlord_id` = tb_user.`user_id`) AND (tb_order_detail.`room_id` = tb_room.`room_id`) and (tb_order_detail.`landlord_id` = #{landlordId})
+    </select>
 
 </mapper>

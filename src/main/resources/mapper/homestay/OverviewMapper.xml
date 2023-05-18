@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.will.homestay.mapper.AdmFeedbackMapper">
+<mapper namespace="com.will.homestay.mapper.OverviewMapper">
+    <!--计算总订单量-->
+    <select id="totalOrder" resultType="Integer">
+        SELECT COUNT(*) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1)
+    </select>
+    <!--计算总收入-->
+    <select id="totalIncome" resultType="BigDecimal">
+        SELECT SUM(tb_order_detail.`pay`) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1)
+    </select>
+    <!--计算总用户人数-->
+    <select id="totalUser" resultType="Integer">
+        SELECT COUNT(*) FROM tb_user WHERE (tb_user.`user_type` = "ROLE_USER")
+    </select>
+    <!--计算总房东人数-->
+    <select id="totalLandlord" resultType="Integer">
+        SELECT COUNT(*) FROM tb_user WHERE (tb_user.`user_type` = "ROLE_LANDLORD")
+    </select>
 
+    <!--计算总房间数-->
+    <select id="totalRoom" resultType="Integer">
+        SELECT COUNT(*) FROM tb_room
+    </select>
 </mapper>

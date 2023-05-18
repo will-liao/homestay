@@ -10,6 +10,16 @@ RoomController -> RoomService : queryMyRooms
 activate RoomService
 RoomService -> RoomServiceImpl : queryMyRooms
 activate RoomServiceImpl
+
+RoomServiceImpl -> RoomMapper : queryMyRooms
+activate RoomMapper
+RoomMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+
 RoomServiceImpl -> UserService : getUserIdByName
 activate UserService
 UserService --> RoomServiceImpl

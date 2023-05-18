@@ -32,6 +32,11 @@ UserService --> AdditionalFeesServiceImpl
 deactivate UserService
 AdditionalFeesServiceImpl -> AdditionalFeesMapper : showRoomAdditional
 activate AdditionalFeesMapper
+/'AdditionalFeesMapper访问数据库DATABASE'/
+AdditionalFeesMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> AdditionalFeesMapper
+deactivate DATABASE
 AdditionalFeesMapper --> AdditionalFeesServiceImpl
 deactivate AdditionalFeesMapper
 AdditionalFeesServiceImpl --> AdditionalFeesService

@@ -29,6 +29,10 @@ OrderDetailService -> OrderDetailServiceImpl : queryOrders
 activate OrderDetailServiceImpl
 OrderDetailServiceImpl -> OrderDetailMapper : queryOrders
 activate OrderDetailMapper
+OrderDetailMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> OrderDetailMapper
+deactivate DATABASE
 OrderDetailMapper --> OrderDetailServiceImpl
 deactivate OrderDetailMapper
 OrderDetailServiceImpl --> OrderDetailService

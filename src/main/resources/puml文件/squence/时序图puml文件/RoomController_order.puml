@@ -20,6 +20,10 @@ RoomService -> RoomServiceImpl : bestSellTop
 activate RoomServiceImpl
 RoomServiceImpl -> RoomMapper : bestSellTop
 activate RoomMapper
+RoomMapper -> DATABASE : insert
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
 RoomMapper --> RoomServiceImpl
 deactivate RoomMapper
 RoomServiceImpl --> RoomService
@@ -40,6 +44,10 @@ RoomService -> RoomServiceImpl : bestSellTop
 activate RoomServiceImpl
 RoomServiceImpl -> RoomMapper : bestSellTop
 activate RoomMapper
+RoomMapper -> DATABASE : insert
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
 RoomMapper --> RoomServiceImpl
 deactivate RoomMapper
 RoomServiceImpl --> RoomService
@@ -52,6 +60,10 @@ RoomService -> RoomServiceImpl : bestSellTop
 activate RoomServiceImpl
 RoomServiceImpl -> RoomMapper : bestSellTop
 activate RoomMapper
+RoomMapper -> DATABASE : insert
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
 RoomMapper --> RoomServiceImpl
 deactivate RoomMapper
 RoomServiceImpl --> RoomService
@@ -64,6 +76,10 @@ RoomService -> RoomServiceImpl : bestSellTop
 activate RoomServiceImpl
 RoomServiceImpl -> RoomMapper : bestSellTop
 activate RoomMapper
+RoomMapper -> DATABASE : insert
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
 RoomMapper --> RoomServiceImpl
 deactivate RoomMapper
 RoomServiceImpl --> RoomService

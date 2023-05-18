@@ -44,7 +44,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo">Flat<span>lab</span></a>
+            <a href="" class="logo">Flat<span>lab</span></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -253,25 +253,25 @@
                 </ul>
                 <!--  notification end -->
             </div>
-            <div class="top-nav ">
-                <!--search & user info start-->
-                <ul class="nav pull-right top-menu">
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
-                            <span class="username" th:text="${user.getUsername()}"></span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
-                            <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-                <!--search & user info end-->
-            </div>
+          <div class="top-nav ">
+              <!--search & user info start-->
+              <ul class="nav pull-right top-menu">
+                  <!-- user login dropdown start-->
+                  <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <img alt=""  style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
+                          <span class="username" th:text="${user.getUsername()}"></span>
+                          <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu extended logout">
+                          <div class="log-arrow-up"></div>
+                          <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
+                      </ul>
+                  </li>
+                  <!-- user login dropdown end -->
+              </ul>
+              <!--search & user info end-->
+          </div>
         </header>
       <!--header end-->
       <!--sidebar start-->
@@ -280,32 +280,39 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
-                      <a class="active" href="#">
+                      <a th:href="@{/homestay/user/toLandlord-user-index}">
                           <i class="fa fa-dashboard"></i>
                           <span>首页</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a th:href="@{/homestay/advertise/getAllAdvertise}" >
+                      <a href="javascript:;" >
                           <i class="fa fa-laptop"></i>
-                          <span>广告管理</span>
+                          <span>房屋管理</span>
                       </a>
+                      <ul class="sub">
+                          <li><a  th:href="@{/homestay/room/toRoomList}">我的房屋</a></li>
+                          <li><a  th:href="@{/homestay/room/toUploadRoom}">上传房屋</a></li>
+                          <li><a  th:href="@{/homestay/additional-fees/toAdditional}">附加物品</a></li>
+                      </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a th:href="@{/homestay/user/getUsers}" >
+                      <a th:href="@{/homestay/order/showOrdersbyLandlordId}" >
                           <i class="fa fa-book"></i>
-                          <span>用户管理</span>
+                          <span>订单管理</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a th:href="@{/homestay/report/getReport}" >
+                      <a href="javascript:;"  class="active">
                           <i class="fa fa-cogs"></i>
-                          <span>报表</span>
+                          <span>我的消息</span>
                       </a>
                   </li>
+
+
               </ul>
               <!-- sidebar menu end-->
           </div>
@@ -313,220 +320,54 @@
       <!--sidebar end-->
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
-              <!--state overview start-->
-              <div class="row state-overview">
-                  <div class="col-lg-3 col-sm-6">
-                      <section class="panel">
-                          <div class="symbol terques">
-                              <i class="fa fa-user"></i>
+          <section class="wrapper site-min-height">
+              <!-- page start-->
+              <div class="chat-room">
+                  <aside class="left-side">
+                      <div class="user-head">
+                          <i class="fa fa-comments-o"></i>
+                          <h3>消息</h3>
+                      </div>
+                      <ul class="chat-list">
+                          <li class="active">
+                              <a class="lobby" href="#">
+                                  <h4>
+                                      <i class="fa fa-list"></i>
+                                      消息大厅
+                                  </h4>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#">
+                                  <i class="fa fa-rocket"></i>
+                                  <span>管理员</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="#">
+                                  <i class="fa fa-rocket"></i>
+                                  <span>租客</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </aside>
+                  <aside class="mid-side">
+                      <div class="chat-room-head">
+                          <h3>消息内容</h3>
+                      </div>
+                      <div class="room-desk">
+                          <div class="room-box" th:each="feedback:${feedbacks}">
+                              <h5 class="text-primary"><a href="#">通知</a></h5>
+                              <p th:text="${feedback.getFeedbackContent()}"></p>
+                              <p><span class="text-muted">adm :</span> manager |<span class="text-muted">feedback time:<span th:text="${#dates.format(feedback.getFeedbackTime(),'yyyy-MM-dd mm:hh:ss')}"></span> </span>
                           </div>
-                          <div class="value">
-                              <h1 class="count">
-                                  0
-                              </h1>
-                              <p>New Users</p>
-                          </div>
-                      </section>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <section class="panel">
-                          <div class="symbol red">
-                              <i class="fa fa-tags"></i>
-                          </div>
-                          <div class="value">
-                              <h1 class=" count2">
-                                  0
-                              </h1>
-                              <p>Sales</p>
-                          </div>
-                      </section>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <section class="panel">
-                          <div class="symbol yellow">
-                              <i class="fa fa-shopping-cart"></i>
-                          </div>
-                          <div class="value">
-                              <h1 class=" count3">
-                                  0
-                              </h1>
-                              <p>New Order</p>
-                          </div>
-                      </section>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <section class="panel">
-                          <div class="symbol blue">
-                              <i class="fa fa-bar-chart-o"></i>
-                          </div>
-                          <div class="value">
-                              <h1 class=" count4">
-                                  0
-                              </h1>
-                              <p>Total Profit</p>
-                          </div>
-                      </section>
-                  </div>
+                      </div>
+                  </aside>
               </div>
-              <!--state overview end-->
-
-              <form role="form" method="post">
-                  <div class="form-group">
-                      <label class="control-label" for="feedback">反馈内容</label>
-                      <textarea class="form-control" name="feedback" id="feedback" rows="3" placeholder="请输入文字描述您的民宿"></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-info col-lg-offset-5" id="send">发送</button>
-              </form>
-
+              <!-- page end-->
           </section>
       </section>
       <!--main content end-->
-
-      <!-- Right Slidebar start -->
-      <div class="sb-slidebar sb-right sb-style-overlay">
-          <h5 class="side-title">Online Customers</h5>
-          <ul class="quick-chat-list">
-              <li class="online">
-                  <div class="media">
-                      <a href="#" class="pull-left media-thumb">
-                          <img alt="" src="img/chat-avatar2.jpg" class="media-object">
-                      </a>
-                      <div class="media-body">
-                          <strong>John Doe</strong>
-                          <small>Dream Land, AU</small>
-                      </div>
-                  </div><!-- media -->
-              </li>
-              <li class="online">
-                  <div class="media">
-                      <a href="#" class="pull-left media-thumb">
-                          <img alt="" src="img/chat-avatar.jpg" class="media-object">
-                      </a>
-                      <div class="media-body">
-                          <div class="media-status">
-                              <span class=" badge bg-important">3</span>
-                          </div>
-                          <strong>Jonathan Smith</strong>
-                          <small>United States</small>
-                      </div>
-                  </div><!-- media -->
-              </li>
-
-              <li class="online">
-                  <div class="media">
-                      <a href="#" class="pull-left media-thumb">
-                          <img alt="" src="img/pro-ac-1.png" class="media-object">
-                      </a>
-                      <div class="media-body">
-                          <div class="media-status">
-                              <span class=" badge bg-success">5</span>
-                          </div>
-                          <strong>Jane Doe</strong>
-                          <small>ABC, USA</small>
-                      </div>
-                  </div><!-- media -->
-              </li>
-              <li class="online">
-                  <div class="media">
-                      <a href="#" class="pull-left media-thumb">
-                          <img alt="" src="img/avatar1.jpg" class="media-object">
-                      </a>
-                      <div class="media-body">
-                          <strong>Anjelina Joli</strong>
-                          <small>Fockland, UK</small>
-                      </div>
-                  </div><!-- media -->
-              </li>
-              <li class="online">
-                  <div class="media">
-                      <a href="#" class="pull-left media-thumb">
-                          <img alt="" src="img/mail-avatar.jpg" class="media-object">
-                      </a>
-                      <div class="media-body">
-                          <div class="media-status">
-                              <span class=" badge bg-warning">7</span>
-                          </div>
-                          <strong>Mr Tasi</strong>
-                          <small>Dream Land, USA</small>
-                      </div>
-                  </div><!-- media -->
-              </li>
-          </ul>
-          <h5 class="side-title"> pending Task</h5>
-          <ul class="p-task tasks-bar">
-              <li>
-                  <a href="#">
-                      <div class="task-info">
-                          <div class="desc">Dashboard v1.3</div>
-                          <div class="percent">40%</div>
-                      </div>
-                      <div class="progress progress-striped">
-                          <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
-                              <span class="sr-only">40% Complete (success)</span>
-                          </div>
-                      </div>
-                  </a>
-              </li>
-              <li>
-                  <a href="#">
-                      <div class="task-info">
-                          <div class="desc">Database Update</div>
-                          <div class="percent">60%</div>
-                      </div>
-                      <div class="progress progress-striped">
-                          <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-warning">
-                              <span class="sr-only">60% Complete (warning)</span>
-                          </div>
-                      </div>
-                  </a>
-              </li>
-              <li>
-                  <a href="#">
-                      <div class="task-info">
-                          <div class="desc">Iphone Development</div>
-                          <div class="percent">87%</div>
-                      </div>
-                      <div class="progress progress-striped">
-                          <div style="width: 87%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-info">
-                              <span class="sr-only">87% Complete</span>
-                          </div>
-                      </div>
-                  </a>
-              </li>
-              <li>
-                  <a href="#">
-                      <div class="task-info">
-                          <div class="desc">Mobile App</div>
-                          <div class="percent">33%</div>
-                      </div>
-                      <div class="progress progress-striped">
-                          <div style="width: 33%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-danger">
-                              <span class="sr-only">33% Complete (danger)</span>
-                          </div>
-                      </div>
-                  </a>
-              </li>
-              <li>
-                  <a href="#">
-                      <div class="task-info">
-                          <div class="desc">Dashboard v1.3</div>
-                          <div class="percent">45%</div>
-                      </div>
-                      <div class="progress progress-striped active">
-                          <div style="width: 45%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar">
-                              <span class="sr-only">45% Complete</span>
-                          </div>
-                      </div>
-
-                  </a>
-              </li>
-              <li class="external">
-                  <a href="#">See All Tasks</a>
-              </li>
-          </ul>
-      </div>
-      <!-- Right Slidebar end -->
 
   </section>
 
@@ -578,23 +419,28 @@
           var owl = $("#owl-demo").data("owlCarousel");
           owl.reinit();
       });
-      //获取id为send的表单提交按钮并使用ajax发送请求，根据返回结果弹出提示框
-        $('#send').click(function(){
-            $.ajax({
-                url:'/homestay/adm-feedback/publish',
-                type:'post',
-                data:{'feedback':$('#feedback').val()},
-                success:function(data){
-                    if(data=='ok'){
-                        alert('发送成功');
-                    }else{
-                        alert('发送失败');
-                    }
-                }
-            });
-        });
-
   </script>
+  <!--<script>
+      //实时获取数据
+      setInterval(function() {
+          $.ajax({
+              url: '/homestay/adm-feedback/getFeedback',
+              method: 'GET',
+              success: function(data) {
+                  // 将数据写到id为showMessage的div中
+                  $('#showMessage').html(data);
+                  console.log(data);
+                  console.log("success");
+              },
+              error: function(xhr, status, error) {
+                  // 处理错误
+                  //将’欢迎使用伴城民宿公寓出租系统‘写到id为showMessage的div中
+                  console.log("error");
+                  $('#showMessage').html('欢迎使用伴城民宿公寓出租系统');
+              }
+          });
+      }, 0);
+  </script>-->
 
   </body>
 </html>

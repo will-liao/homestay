@@ -14,6 +14,16 @@ UserController -> UserService : updateUser
 activate UserService
 UserService -> UserServiceImpl : updateUser
 activate UserServiceImpl
+
+UserServiceImpl -> UserMapper : updateUser
+activate UserMapper
+UserMapper -> DATABASE : update
+activate DATABASE
+DATABASE --> UserMapper
+deactivate DATABASE
+UserMapper --> UserServiceImpl
+deactivate UserMapper
+
 UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> UserController
@@ -22,6 +32,16 @@ UserController -> UserService : getUserById
 activate UserService
 UserService -> UserServiceImpl : getUserById
 activate UserServiceImpl
+
+UserServiceImpl -> UserMapper : getUserById
+activate UserMapper
+UserMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> UserMapper
+deactivate DATABASE
+UserMapper --> UserServiceImpl
+deactivate UserMapper
+
 UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> UserController

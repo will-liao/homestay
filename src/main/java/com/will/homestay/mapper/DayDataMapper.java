@@ -1,8 +1,10 @@
 package com.will.homestay.mapper;
 
-import com.will.homestay.entity.AdmFeedback;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.will.homestay.entity.AdmFeedback;
+import com.will.homestay.entity.DayData;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -12,6 +14,13 @@ import org.apache.ibatis.annotations.Mapper;
  * @author will
  * @since 2023-03-30
  */
-public interface AdmFeedbackMapper extends BaseMapper<AdmFeedback> {
+public interface DayDataMapper extends BaseMapper<DayData> {
+    //每天的订单数
+    Integer dayOrder();
 
+    //每天的用户数
+    Integer dayLiving();
+
+    //每天的总收入
+    BigDecimal dayIncome();
 }

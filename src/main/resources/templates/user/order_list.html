@@ -62,204 +62,116 @@
                 <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
                     <ul class="nav navbar-nav">
                         <!-- Classic list -->
-                        <li class="active"><a href="#">首页 </a>
+                        <li class="active"><a th:href="@{/homestay/user/toCommon-user-index}">首页 </a>
                         </li>
                         <!-- Accordion demo -->
-                        <li class="dropdown"><a href="#" data-toggle="dropdown">订单信息 </a>
+                        <li><a href="#">订单信息 </a>
                         </li>
                         <!-- Classic dropdown -->
-                        <li class="dropdown"><a href="#" data-toggle="dropdown">心愿单 </a>
+                        <li><a th:href="@{/homestay/desire/showMyDesires}">心愿单 </a>
                         </li>
                         <!-- Pictures -->
                         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">个人信息 </a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="#"> 账号信息 </a></li>
+                                <li><a tabindex="-1" th:href="@{/homestay/user/self-message}"> 账号信息 </a></li>
                                 <li><a tabindex="-1" href="#"> 修改密码 </a></li>
-                                <li><a tabindex="-1" href="#"> 我的消息 </a></li>
+                                <li><a tabindex="-1" href="#"> 我的评论 </a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
+        <div class="top-nav ">
+            <!--search & user info start-->
+            <ul class="nav pull-right top-menu">
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt=""  style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
+                        <span class="username" th:text="${user.getUsername()}"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!--search & user info end-->
+        </div>
     </header>
     <!--header end-->
     <!--main content start-->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-        <!-- 指示符 -->
-        <ul class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ul>
-
-        <!-- 轮播图片 -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../../../static/img/photos/广告图1.jpg">
-                <div class="carousel-caption">
-                    <h3>第一张图片描述标题</h3>
-                    <p>描述文字!</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../../../static/img/photos/广告图2.jpg">
-                <div class="carousel-caption">
-                    <h3>第二张图片描述标题</h3>
-                    <p>描述文字!</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="../../../static/img/photos/广告图3.jpg">
-                <div class="carousel-caption">
-                    <h3>第三张图片描述标题</h3>
-                    <p>描述文字!</p>
-                </div>
-            </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="panel panel-success" style="opacity: 1;">
+        <div class="panel-heading" style="font-size: large">Tips</div>
+        <!--<div th:if="${session.msg}" class="panel-body" style="text-align: center;color: #c9302c;font-size: medium" th:text="${session.msg}"></div>-->
+        <div class="panel-body" th:text="${message}" style="text-align: center;color: #c9302c;font-size: medium">
         </div>
-
-        <!-- 左右切换按钮 -->
-        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-
     </div>
-    <section class="wrapper">
-        <!-- page start-->
-        <div class="row">
-            <div class="col-md-3">
-                <section class="panel">
-                    <div class="panel-body">
-                        <input type="text" placeholder="关键词搜索" class="form-control">
-                    </div>
-                </section>
-                <section class="panel">
-                    <header class="panel-heading">
-                        筛选
-                    </header>
-                    <div class="panel-body">
-                        <form role="form product-form">
-                            <div class="form-group">
-                                <label>区域</label>
-                                <select class="form-control hasCustomSelect"
-                                        style="appearance: menulist-button; width: 310px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
-                                    <option>Wallmart</option>
-                                    <option>Catseye</option>
-                                    <option>Moonsoon</option>
-                                    <option>Textmart</option>
-                                </select><span class="customSelect form-control" style="display: inline-block;"><span
-                                    class="customSelectInner"
-                                    style="width: 288px; display: inline-block;">Wallmart</span></span>
-                            </div>
-                            <div class="form-group">
-                                <label>价格区间</label>
-                                <select class="form-control hasCustomSelect"
-                                        style="appearance: menulist-button; width: 310px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
-                                    <option>White</option>
-                                    <option>Black</option>
-                                    <option>Red</option>
-                                    <option>Green</option>
-                                </select><span class="customSelect form-control" style="display: inline-block;"><span
-                                    class="customSelectInner" style="width: 288px; display: inline-block;">White</span></span>
-                            </div>
-                            <div class="form-group">
-                                <label>时间</label>
-                                <select class="form-control hasCustomSelect"
-                                        style="appearance: menulist-button; width: 310px; position: absolute; opacity: 0; height: 34px; font-size: 12px;">
-                                    <option>Small</option>
-                                    <option>Medium</option>
-                                    <option>Large</option>
-                                    <option>Extra Large</option>
-                                </select><span class="customSelect form-control" style="display: inline-block;"><span
-                                    class="customSelectInner" style="width: 288px; display: inline-block;">Small</span></span>
-                            </div>
-                            <button class="btn btn-primary" type="submit">确定</button>
-                        </form>
-                    </div>
-                </section>
-                <section class="panel">
-                    <header class="panel-heading">
-                        热门民宿
-                    </header>
-                    <div class="panel-body">
-                        <div class="best-seller">
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="../../../static/img/product1.jpg">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#" class=" p-head">Item One Tittle</a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+    <section class="panel">
+        <header class="panel-heading">
+            历史订单
+        </header>
+        <table class="table table-striped table-advance table-hover" style="table-layout: fixed">
+            <thead>
+            <tr>
+                <th><i class="fa fa-bullhorn"></i> 民宿地址</th>
+                <th><i class="fa fa-bullhorn"></i> 民宿类型</th>
+                <th><i class="fa fa-bookmark"></i> 民宿价格</th>
+                <th><i class=" fa fa-edit"></i> 使用时间</th>
+                <th><i class=" fa fa-edit"></i> 结束时间</th>
+                <th class="hidden-phone"> 房东手机号</th>
+                <th><i class=" fa fa-edit"></i> 操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order:${orders}">
+                <td th:text="${order.getRoomAddress()}"></td>
+                <td th:text="${order.getRoomType()}"></td>
+                <td th:text="${order.getPay()+'￥'}"></td>
+                <td th:text="${order.getStartTime()}"></td>
+                <td th:text="${order.getEndTime()}"></td>
+                <td th:text="${order.getPhone()}"></td>
+                <td>
+                    <button th:if="${order.getOrderCondition() == true}" class="btn btn-primary btn-xs">已完成</button>
+                    <button th:if="${order.getOrderCondition() == false}" class="btn btn-primary btn-xs"><i class="fa fa-mail-forward (alias)">&nbsp;<a th:href="@{/homestay/order/tuiFang(orderId = ${order.getOrderId()},userId = ${order.getUserId()})}" style="color: #FFFFFF">退房</a></i></button>
+                    <button th:if="${order.getOrderCondition() == true}" class="btn btn-danger btn-xs"><i>
+                        <a href="#myModal" data-toggle="modal" style="color: #FFFFFF">
+                        去评论
+                    </a></i></button>
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">请输入您的评论</h4>
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                                 </div>
-                            </article>
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="../../../static/img/product2.png">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#" class=" p-head">Item Two Tittle</a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <div class="modal-body">
+
+                                    <form role="form" method="post" th:action="@{/homestay/order-comment/comment}">
+                                        <input hidden="hidden" name="orderId" th:value="${order.getOrderId()}">
+                                        <input hidden="hidden" name="userId" th:value="${order.getUserId()}">
+                                        <div class="form-group">
+                                            <label class="control-label" for="roomDescrible">我的评论</label>
+                                            <textarea class="form-control" name="content" id="roomDescrible" rows="3" placeholder="请输入文字进行评论"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-default col-lg-offset-5">评论</button>
+                                    </form>
                                 </div>
-                            </article>
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="../../../static/img/product3.png">
-                                </a>
-                                <div class="media-body">
-                                    <a href="#" class=" p-head">Item Three Tittle</a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-                            </article>
+                            </div>
                         </div>
                     </div>
-                </section>
-            </div>
-            <div class="col-md-9">
-                <section class="panel">
-                    <div class="panel-body">
-                        <form>
-                            <div class="pro-sort">
-                                <label class="pro-lab">排序规则</label>
-                                <select class="styled">
-                                    <option>价格从高到低</option>
-                                    <option>价格从低到高</option>
-                                    <option>销量</option>
-                                    <option>上架时间</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-success">搜索</button>
-                        </form>
-                    </div>
-                </section>
-
-                <div class="row product-list">
-                    <div th:each="room:${rooms}" class="col-md-4">
-                        <section class="panel">
-                            <div class="pro-img-box">
-                                <img th:src="@{/pic/} + ${room.getPic()}" style="margin-left: 33px; width: 330px; height: 330px;" alt="">
-                                <a th:href="@{/homestay/order-detail/toRoomDetail(roomId = ${room.getRoomId()})}" class="adtocart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
-
-                            </div>
-                            <div class="panel-body text-center">
-                                <h4>
-                                    <a href="#" class="pro-title" th:text="${room.getRoomAddress()}">
-                                    </a>
-                                </h4>
-                                <p class="price" th:text="${'￥'+room.getRoomPrice()}"></p>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- page end-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </section>
 
 </section>

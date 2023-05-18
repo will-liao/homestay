@@ -39,7 +39,7 @@ public class Room implements Serializable {
     /**
      * 房间地址
      */
-    private String roomAdress;
+    private String roomAddress;
 
     /**
      * 房间描述

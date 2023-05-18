@@ -42,6 +42,12 @@
             width: 100%;
             height: 100%;
         }
+        #show li{
+            height: 50px;
+            padding-top: 10px;
+            font-family: "Adobe 黑体 Std R";
+            font-size: large;
+        }
     </style>
 </head>
 
@@ -62,13 +68,13 @@
                 <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
                     <ul class="nav navbar-nav">
                         <!-- Classic list -->
-                        <li class="active"><a th:href="@{/homestay/order/showOrders}">首页 </a>
+                        <li class="active"><a th:href="@{/homestay/user/toCommon-user-index}">首页 </a>
                         </li>
                         <!-- Accordion demo -->
-                        <li class="dropdown"><a th:href="@{/homestay/order/showOrders}" data-toggle="dropdown">订单信息 </a>
+                        <li><a th:href="@{/homestay/order/showOrders}">订单信息 </a>
                         </li>
                         <!-- Classic dropdown -->
-                        <li class="dropdown"><a href="#" data-toggle="dropdown">心愿单 </a>
+                        <li><a th:href="@{/homestay/desire/showMyDesires}">心愿单 </a>
                         </li>
                         <!-- Pictures -->
                         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">个人信息 </a>
@@ -82,43 +88,58 @@
                 </div>
             </div>
         </div>
-
+        <div class="top-nav ">
+            <!--search & user info start-->
+            <ul class="nav pull-right top-menu">
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt=""  style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
+                        <span class="username" th:text="${user.getUsername()}"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!--search & user info end-->
+        </div>
     </header>
     <!--header end-->
     <!--main content start-->
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="panel panel-success" style="opacity: 1;">
-        <div class="panel-heading" style="font-size: large">我的收藏</div>
-        <!--<div th:if="${session.msg}" class="panel-body" style="text-align: center;color: #c9302c;font-size: medium" th:text="${session.msg}"></div>-->
-        <div class="panel-body" th:text="${message}" style="text-align: center;color: #c9302c;font-size: medium">
-        </div>
-    </div>
-
-    <section class="panel">
-        <div class="row product-list">
-            <div th:each="desire:${desires}" class="col-md-3">
-                <section class="panel">
-                    <div class="pro-img-box">
-                        <a th:href="@{/homestay/order-detail/toRoomDetail(roomId = ${desire.getRoomId()})}">
-                            <img th:src="@{/pic/} + ${desire.getPic()}" style="margin-left: 33px; width: 330px; height: 330px;" alt="">
-                        </a>
-                        <a class="adtocart" th:href="@{/homestay/desire/deleteDesire(desireId = ${desire.getDesireId()})}">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-
-                    </div>
-                    <div class="panel-body text-center">
-                        <h4>
-                            <a href="#" class="pro-title" th:text="${desire.getRoomAddress()}">
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- page start-->
+            <div class="row">
+                <aside class="profile-nav col-lg-4 col-lg-offset-4">
+                    <section class="panel">
+                        <div class="user-heading round">
+                            <a href="#">
+                                <img th:src="@{/pic/}+${user.getUserPic()}" alt="" style="height: 150px;width: 150px    ">
                             </a>
-                        </h4>
-                    </div>
-                </section>
+                            <p style="font-size: x-large;font-family: 'Adobe 黑体 Std R'" th:text="${user.getUsername()}"></p>
+                            <p style="font-size: x-large;font-family: 'Adobe 黑体 Std R'" th:text="${user.getMail()}"></p>
+                        </div>
+
+                        <ul class="nav nav-pills nav-stacked" id="show">
+                            <li th:if="${user.getSex()} == 1" style="width: 550px"><span class="posted_in"> <strong>性别:</strong> <a rel="tag" href="#"></a>男.</span></li>
+                            <li th:if="${user.getSex()} == 0" style="width: 550px"><span class="posted_in"> <strong>性别:</strong> <a rel="tag" href="#"></a>女.</span></li>
+                            <li th:if="${user.getUserType()} eq 'ROLE_COMMON'" style="width: 550px"><span class="posted_in"> <strong>用户类型:</strong> <a rel="tag" href="#"></a>普通用户.</span></li>
+                            <li th:if="${user.getUserType()} eq 'ROLE_LANDLORD'" style="width: 550px"><span class="posted_in"> <strong>用户类型:</strong> <a rel="tag" href="#"></a>房东.</span></li>
+                            <li th:if="${user.getUserType()} eq 'ROLE_MANAGER'" style="width: 550px"><span class="posted_in"> <strong>用户类型:</strong> <a rel="tag" href="#"></a>管理员.</span></li>
+                            <li style="width: 550px"><span class="posted_in"> <strong>手机号:</strong> <a rel="tag" href="#" th:text="${user.getPhone()}"></a>.</span></li>
+                            <li style="width: 550px"><span class="posted_in"> <strong>身份证号:</strong> <a rel="tag" href="#" th:text="${user.getIdentityCard()}"></a>.</span></li>
+                        </ul>
+
+                    </section>
+                </aside>
             </div>
-        </div>
+
+            <!-- page end-->
+        </section>
     </section>
 
 </section>

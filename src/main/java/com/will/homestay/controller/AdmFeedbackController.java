@@ -1,9 +1,18 @@
 package com.will.homestay.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.will.homestay.pubsub.Publish;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.Message;
+import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
@@ -16,5 +25,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/homestay/adm-feedback")
 public class AdmFeedbackController {
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private Publish publish;
 
+    //发布房东公告控制器
+    @RequestMapping("/publish")
+    public String publish(@RequestParam("feedback") String feedback) {
+        publish.publish(feedback,"admin");
+        return "ok";
+    }
+
+    @RequestMapping("/getMessage")
+    @ResponseBody
+    public String getFeedback() {
+
+        System.out.println("进入getFeedback");
+        return "";
+    }
 }

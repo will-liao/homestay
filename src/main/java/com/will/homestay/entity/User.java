@@ -1,5 +1,6 @@
 package com.will.homestay.entity;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -65,5 +66,14 @@ public class User implements Serializable {
      */
     private String identityCard;
 
+    /**
+     * 用户照片
+     */
+    private String userPic;
 
+    /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer deleted;
 }

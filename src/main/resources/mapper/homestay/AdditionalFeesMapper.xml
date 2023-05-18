@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.will.homestay.mapper.AdditionalFeesMapper">
-
+    <select id="showRoomAdditional" resultType="com.will.homestay.pojo.ShowAdditional">
+        SELECT r.`room_id`,r.`room_address`,a.`fees_name`,a.`add_price` FROM tb_additional_fees AS a,tb_room AS r
+        WHERE a.`room_id` = r.`room_id` and r.`landlord_id` = #{landlordId}
+    </select>
 </mapper>

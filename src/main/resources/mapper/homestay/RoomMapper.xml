@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.will.homestay.mapper.RoomMapper">
-
+    <select id="filterRoom" resultType="com.will.homestay.entity.Room">
+        SELECT distinct tb_room.*
+        FROM tb_room
+        LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
+        WHERE
+            tb_room.room_type like concat('%',#{roomType}) AND(
+                    tb_room.room_price >= #{minPrice} AND tb_room.room_price <![CDATA[<=]]> #{maxPrice})  AND
+        tb_room.`room_id` NOT IN (
+        SELECT tb_room.`room_id`
+        FROM tb_order_detail
+        WHERE (
+        <if test="startTime!=null and endTime != null">
+                #{startTime}>=tb_order_detail.`start_time` AND #{startTime} <![CDATA[<=]]> tb_order_detail.`end_time`) or (#{endTime}>=tb_order_detail.`start_time` AND #{endTime}<![CDATA[<=]]>tb_order_detail.`end_time`))
+        </if>
+    </select>
+    <select id="bestSellTop" resultType="com.will.homestay.entity.Room">
+        <!--查询订单表，根据民宿id分组，统计每个民宿的销量，根据销量降序排序，并展示前六个民宿-->
+        SELECT tb_room.*
+        FROM tb_room
+        LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
+        GROUP BY tb_room.room_id
+        ORDER BY COUNT(tb_room.room_id) DESC
+        LIMIT #{number}
+    </select>
 </mapper>

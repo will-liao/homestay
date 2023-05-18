@@ -1,8 +1,8 @@
 package com.will.homestay.mapper;
 
-import com.will.homestay.entity.AdmFeedback;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.will.homestay.entity.AdmFeedback;
+import com.will.homestay.entity.Advertise;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author will
  * @since 2023-03-30
  */
-public interface AdmFeedbackMapper extends BaseMapper<AdmFeedback> {
+public interface AdvertiseMapper extends BaseMapper<Advertise> {
 
 }

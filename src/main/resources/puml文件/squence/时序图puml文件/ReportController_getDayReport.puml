@@ -10,5 +10,37 @@ UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> ReportController
 deactivate UserService
+
+ReportController -> DayDataService : queryDayData
+activate DayDataService
+DayDataService -> DayDataServiceImpl : queryDayData
+activate DayDataServiceImpl
+DayDataServiceImpl -> DayDataMapper : queryDayData
+activate DayDataMapper
+DayDataMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> DayDataMapper
+deactivate DATABASE
+DayDataMapper --> DayDataServiceImpl
+deactivate DayDataMapper
+DayDataServiceImpl --> DayDataService
+deactivate DayDataServiceImpl
+
+ReportController -> MouthDataService : queryMouthData
+activate MouthDataService
+MouthDataService -> MouthDataServiceImpl : queryMouthData
+activate MouthDataServiceImpl
+MouthDataServiceImpl -> MouthDataMapper : queryMouthData
+activate MouthDataMapper
+MouthDataMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> MouthDataMapper
+deactivate DATABASE
+MouthDataMapper --> MouthDataServiceImpl
+deactivate MouthDataMapper
+MouthDataServiceImpl --> MouthDataService
+deactivate MouthDataServiceImpl
+
+
 return
 @enduml

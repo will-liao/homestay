@@ -1,22 +1,5 @@
 @startuml
 'https://plantuml.com/use-case-diagram
+/'租客登录客户端网站后能够使用客户端模块中的所有功能，包括用户登录、用户注册、浏览民宿房间信息、发表对房间的评论、支付预订房间、退房、对心愿单的增删、按照指定条件筛选(include:按照时间筛选，按照房型筛选，按照价格范围筛选),还有排序功能(include:按照价格降序，按照价格升序，按照销量降序)功能。房东用户也能使用登录注册功能'/
 
-:Main Admin: as Admin
-(Use the application) as (Use)
-
-User -> (Start)
-User --> (Use)
-
-Admin ---> (Use)
-
-note right of Admin : This is an example.
-
-note right of (Use)
-A note can also
-be on several lines
-end note
-
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
 @enduml

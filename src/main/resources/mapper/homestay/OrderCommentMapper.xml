@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.will.homestay.mapper.OrderCommentMapper">
-
+    <select id="getRoomComment" resultType="com.will.homestay.pojo.ShowComments">
+        SELECT tb_user.`username`, tb_order_comment.`content`,tb_order_comment.`time`, tb_user.`user_pic`
+        FROM tb_order_comment,tb_order_detail,tb_room,tb_user
+        WHERE tb_order_comment.`order_id` = tb_order_detail.`order_id` AND tb_order_detail.`room_id` =  #{roomId} AND tb_room.`room_id` = #{roomId} AND tb_user.`user_id` = tb_order_comment.`user_id`
+    </select>
 </mapper>

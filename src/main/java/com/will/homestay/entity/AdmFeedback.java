@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,11 +26,15 @@ import lombok.experimental.Accessors;
 public class AdmFeedback implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    /**
+     * 反馈表id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 管理员id
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
     /**
@@ -39,7 +45,7 @@ public class AdmFeedback implements Serializable {
     /**
      * 反馈时间
      */
-    private LocalDateTime feedbackTime;
+    private Date feedbackTime;
 
 
 }

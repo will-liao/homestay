@@ -1,13 +1,14 @@
 package com.will.homestay.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -20,26 +21,26 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tb_adm_feedback")
-public class AdmFeedback implements Serializable {
+@TableName("tb_advertise")
+public class Advertise implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 管理员id
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    @TableId(value = "advertise_id", type = IdType.AUTO)
+    private Integer advertiseId;
 
     /**
-     * 反馈内容
+     * 广告内容
      */
-    private String feedbackContent;
+    private String adDescrible;
 
     /**
-     * 反馈时间
+     * 广告图片
      */
-    private LocalDateTime feedbackTime;
+    private String adPic;
 
 
 }

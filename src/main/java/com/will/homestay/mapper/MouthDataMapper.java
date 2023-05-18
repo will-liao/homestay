@@ -1,8 +1,10 @@
 package com.will.homestay.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.will.homestay.entity.AdmFeedback;
 import com.will.homestay.entity.DayData;
+import com.will.homestay.entity.MouthData;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -12,6 +14,13 @@ import com.will.homestay.entity.DayData;
  * @author will
  * @since 2023-03-30
  */
-public interface DayDataMapper extends BaseMapper<DayData> {
+public interface MouthDataMapper extends BaseMapper<MouthData> {
+    //每月的订单数
+    Integer mouthOrder();
 
+    //每月的用户数
+    Integer mouthLiving();
+
+    //每月的总收入
+    BigDecimal mouthIncome();
 }

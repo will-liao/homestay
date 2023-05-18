@@ -14,6 +14,16 @@ RoomController -> UserService : selectUserByUsername
 activate UserService
 UserService -> UserServiceImpl : selectUserByUsername
 activate UserServiceImpl
+
+UserServiceImpl -> UserMapper : selectUserByUsername
+activate UserMapper
+UserMapper -> DATABASE : selectUserByUsername
+activate DATABASE
+DATABASE --> UserMapper
+deactivate DATABASE
+UserMapper --> UserServiceImpl
+deactivate UserMapper
+
 UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> RoomController

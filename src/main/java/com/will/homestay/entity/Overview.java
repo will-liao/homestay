@@ -1,6 +1,7 @@
 package com.will.homestay.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -21,26 +22,41 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tb_advertise")
-public class Advertise implements Serializable {
+@TableName("tb_overview")
+public class Overview implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 管理员id
+     * 概览表id
      */
-    @TableId(value = "advertise_id", type = IdType.AUTO)
-    private Integer advertiseId;
+    @TableId(value = "overview_id", type = IdType.AUTO)
+    private Integer overviewId;
 
     /**
-     * 广告内容
+     * 用户数量
      */
-    private String adDescrible;
+    private Integer userNum;
 
     /**
-     * 广告图片
+     * 房间数量
      */
-    private String adPic;
+    private Integer roomNum;
 
+    /**
+     * 订单数量
+     */
+    private Integer totalOrder;
+
+    /**
+     * 总房东数
+     */
+    private Integer landlordNum;
+
+    /**
+     * 总收入
+     */
+    @TableField("total_income")
+    private BigDecimal totalIncome;
 
 }

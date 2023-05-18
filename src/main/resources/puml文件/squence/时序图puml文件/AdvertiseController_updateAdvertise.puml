@@ -6,6 +6,7 @@ AdvertiseController -> UserService : selectUserByUsername
 activate UserService
 UserService -> UserServiceImpl : selectUserByUsername
 activate UserServiceImpl
+
 UserServiceImpl --> UserService
 deactivate UserServiceImpl
 UserService --> AdvertiseController
@@ -14,6 +15,16 @@ AdvertiseController -> AdvertiseService : updateAdvertise
 activate AdvertiseService
 AdvertiseService -> AdvertiseServiceImpl : updateAdvertise
 activate AdvertiseServiceImpl
+
+AdvertiseServiceImpl -> AdvertiseMapper : updateAdvertise
+activate AdvertiseMapper
+AdvertiseMapper -> DATABASE : update
+activate DATABASE
+DATABASE --> AdvertiseMapper
+deactivate DATABASE
+AdvertiseMapper --> AdvertiseServiceImpl
+deactivate AdvertiseMapper
+
 AdvertiseServiceImpl --> AdvertiseService
 deactivate AdvertiseServiceImpl
 AdvertiseService --> AdvertiseController

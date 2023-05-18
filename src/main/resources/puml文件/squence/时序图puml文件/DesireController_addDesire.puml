@@ -22,6 +22,16 @@ DesireController -> RoomService : queryRoomById
 activate RoomService
 RoomService -> RoomServiceImpl : queryRoomById
 activate RoomServiceImpl
+
+RoomServiceImpl -> RoomMapper : queryRoomById
+activate RoomMapper
+RoomMapper -> DATABASE : select
+activate DATABASE
+DATABASE --> RoomMapper
+deactivate DATABASE
+RoomMapper --> RoomServiceImpl
+deactivate RoomMapper
+
 RoomServiceImpl --> RoomService
 deactivate RoomServiceImpl
 RoomService --> DesireController

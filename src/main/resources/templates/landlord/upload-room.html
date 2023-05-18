@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,19 +15,69 @@
     <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
     <!--external css-->
     <link href="../../../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-datepicker/css/datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-timepicker/compiled/timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/jquery-multi-select/css/multi-select.css" />
+      <!-- Bootstrap core CSS -->
+      <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
+      <!--external css-->
+      <link href="../../../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="../../../static/css/style.css" rel="stylesheet">
+      <link href="../../../static/css/style-responsive.css" rel="stylesheet" />
+      <script type="text/javascript">
+          var loadImageFile = (function() {
+              if (window.FileReader) {
+                  var oPreviewImg = null, oFReader = new window.FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
-    <!--right slidebar-->
-    <link href="../../../static/css/slidebars.css" rel="stylesheet">
+                  oFReader.onload = function(oFREvent) {
+                      if (!oPreviewImg) {
+                          var newPreview = document.getElementById("imagePreview");
+                          oPreviewImg = new Image();
+                          oPreviewImg.style.width = (200)
+                                  .toString()
+                              + "px";
+                          oPreviewImg.style.height = (newPreview.offsetHeight)
+                                  .toString()
+                              + "px";
+                          if(newPreview.childNodes.length != 0){
+                              newPreview.removeChild(document.getElementById("imgid"));
+                          }
+                          newPreview.appendChild(oPreviewImg);
+                      }
+                      oPreviewImg.src = oFREvent.target.result;
+                  };
 
-    <!-- Custom styles for this template -->
-    <link href="../../../static/css/style.css" rel="stylesheet">
-    <link href="../../../static/css/style-responsive.css" rel="stylesheet" />
+                  return function() {
+                      var aFiles = document.getElementById("imageInput").files;
+                      if (aFiles.length === 0) {
+                          return;
+                      }
+                      if (!rFilter.test(aFiles[0].type)) {
+                          alert("You must select a valid image file!");
+                          return;
+                      }
+                      oFReader.readAsDataURL(aFiles[0]);
+                  }
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../../static/js/html5shiv.js"></script>
-      <script src="../../../static/js/respond.min.js"></script>
-    <![endif]-->
+              }
+              if (navigator.appName === "Microsoft Internet Explorer") {
+                  return function() {
+                      alert(document.getElementById("imageInput").value);
+                      document.getElementById("imagePreview").filters
+                          .item("DXImageTransform.Microsoft.AlphaImageLoader").src = document
+                          .getElementById("imageInput").value;
+
+                  }
+              }
+          })();
+      </script>
   </head>
 
   <body>
@@ -247,33 +297,6 @@
               <!-- notification dropdown end -->
           </ul>
           </div>
-          <div class="top-nav ">
-              <ul class="nav pull-right top-menu">
-                  <li>
-                      <input type="text" class="form-control search" placeholder="Search">
-                  </li>
-                  <!-- user login dropdown start-->
-                  <li class="dropdown">
-                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                          <img alt="" src="img/avatar1_small.jpg">
-                          <span class="username">Jhon Doue</span>
-                          <b class="caret"></b>
-                      </a>
-                      <ul class="dropdown-menu extended logout">
-                          <div class="log-arrow-up"></div>
-                          <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                          <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                          <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                          <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
-                      </ul>
-                  </li>
-
-                  <!-- user login dropdown end -->
-                  <li class="sb-toggle-right">
-                      <i class="fa  fa-align-right"></i>
-                  </li>
-              </ul>
-          </div>
       </header>
       <!--header end-->
       <!--sidebar start-->
@@ -282,26 +305,26 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
-                      <a class="active" href="index.html">
+                      <a href="index.html">
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a href="javascript:;" class="active">
                           <i class="fa fa-laptop"></i>
                           <span>房屋管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  th:href="@{/homestay/room/roomList}">我的房屋</a></li>
-                          <li><a  href="horizontal_menu.html">上传房屋</a></li>
-                          <li><a  href="header-color.html">房屋评论</a></li>
+                          <li><a  th:href="@{/homestay/room/toRoomList}">我的房屋</a></li>
+                          <li class="active"><a  th:href="@{/homestay/room/uploadRoom}">上传房屋</a></li>
+                          <li><a  th:href="@{/homestay/additional-fees/toAdditional}">附加物品</a></li>
                       </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a th:href="@{/homestay/order/showOrdersbyLandlordId}" >
                           <i class="fa fa-book"></i>
                           <span>订单管理</span>
                       </a>
@@ -310,7 +333,7 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cogs"></i>
-                          <span>房屋评论</span>
+                          <span>我的消息</span>
                       </a>
                   </li>
 
@@ -324,195 +347,69 @@
       <section id="main-content">
           <section class="wrapper site-min-height">
               <!-- page start-->
-              <div class="row">
-                  <div class="col-lg-6">
-                      <section class="panel">
-                          <header class="panel-heading">
-                              Basic Forms
-                          </header>
-                          <div class="panel-body">
-                              <form role="form">
-                                  <div class="form-group">
-                                      <label for="exampleInputEmail1">Email address</label>
-                                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputPassword1">Password</label>
-                                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputFile">File input</label>
-                                      <input type="file" id="exampleInputFile">
-                                      <p class="help-block">Example block-level help text here.</p>
-                                  </div>
-                                  <div class="checkbox">
-                                      <label>
-                                          <input type="checkbox"> Check me out
-                                      </label>
-                                  </div>
-                                  <button type="submit" class="btn btn-info">Submit</button>
-                              </form>
-
-                          </div>
-                      </section>
+              <div class="panel panel-success" style="opacity: 1;">
+                  <div class="panel-heading" style="font-size: large">Tips</div>
+                  <!--<div th:if="${session.msg}" class="panel-body" style="text-align: center;color: #c9302c;font-size: medium" th:text="${session.msg}"></div>-->
+                  <div class="panel-body" th:text="${message}" style="text-align: center;color: #c9302c;font-size: medium">
                   </div>
-                  <div class="col-lg-6">
+              </div>
+
+              <div class="row">
+                  <div class="col-lg-offset-3 col-lg-6">
                       <section class="panel">
-                          <header class="panel-heading">
-                              Horizontal Forms
+                          <header class="panel-heading" style="text-align: center">
+                              请输入民宿相关信息
                           </header>
                           <div class="panel-body">
-                              <form class="form-horizontal" role="form">
+                              <form role="form" th:action="@{/homestay/room/uploadRoom}" method="post" enctype="multipart/form-data">
                                   <div class="form-group">
-                                      <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Email</label>
-                                      <div class="col-lg-10">
-                                          <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
-                                          <p class="help-block">Example block-level help text here.</p>
-                                      </div>
+                                      <label for="roomAddress">民宿地址</label>
+                                      <input type="text" name="roomAddress" class="form-control" id="roomAddress" placeholder="请输入地址" value="广东海洋大学">
                                   </div>
                                   <div class="form-group">
-                                      <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">Password</label>
-                                      <div class="col-lg-10">
-                                          <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                      </div>
+                                      <label class="control-label" for="roomDescrible">民宿描述</label>
+                                      <textarea class="form-control" name="roomDescrible" id="roomDescrible" rows="3" placeholder="请输入文字描述您的民宿">最早入住时间14:00)(最晚入住时间次日03:00)(最晚退房时间12:00</textarea>
                                   </div>
                                   <div class="form-group">
-                                      <div class="col-lg-offset-2 col-lg-10">
-                                          <div class="checkbox">
-                                              <label>
-                                                  <input type="checkbox"> Remember me
-                                              </label>
+                                      <label>民宿类型</label>
+                                      <select class="form-control" name="roomType">
+                                          <option selected>常规一室一厅</option>
+                                          <option>豪华一室一厅</option>
+                                          <option>海景一室一厅</option>
+                                          <option>常规两室一厅</option>
+                                          <option>豪华两室一厅</option>
+                                          <option>海景两室一厅</option>
+                                          <option>常规三室一厅</option>
+                                          <option>豪华三室一厅</option>
+                                          <option>海景三室一厅</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group col-lg-6">
+                                      <label for="roomPrice">民宿价格</label>
+                                      <input type="text" value="108" name="roomPrice" class="form-control" id="roomPrice" placeholder="单位￥">
+                                  </div>
+                                  <div class="form-group col-lg-6">
+                                      <label for="roomSize">民宿大小</label>
+                                      <input type="text" value="28" name="roomSize" class="form-control" id="roomSize" placeholder="单位m³">
+                                  </div>
+
+                                  <div class="form-group col-lg-offset-4">
+                                      <div class="fileupload fileupload-new" data-provides="fileupload">
+                                          <div class="fileupload-new thumbnail"  id="imagePreview"  style="width: 200px; height: 150px;">
+                                              <img id="imgid" src="../../../static/img/500_icon.png" alt="" />
+                                          </div>
+                                          <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                          <div>
+                                                   <span class="btn btn-white btn-file">
+                                                   <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片</span>
+                                                   <input id="imageInput" onchange="loadImageFile();" name="file" type="file" class="default" />
+                                                   </span>
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="form-group">
-                                      <div class="col-lg-offset-2 col-lg-10">
-                                          <button type="submit" class="btn btn-danger">Sign in</button>
-                                      </div>
-                                  </div>
+                                      <button type="submit" class="btn btn-info col-lg-offset-5">确认上传</button>
                               </form>
-                          </div>
-                      </section>
-                      <section class="panel">
 
-                          <div class="panel-body">
-                              <a href="#myModal" data-toggle="modal" class="btn btn-xs btn-success">
-                                  Form in Modal
-                              </a>
-                              <a href="#myModal-1" data-toggle="modal" class="btn btn-xs btn-warning">
-                                  Form in Modal 2
-                              </a>
-                              <a href="#myModal-2" data-toggle="modal" class="btn btn-xs btn-danger">
-                                  Form in Modal 3
-                              </a>
-
-                              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-                                  <div class="modal-dialog">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                              <h4 class="modal-title">Form Tittle</h4>
-                                          </div>
-                                          <div class="modal-body">
-
-                                              <form role="form">
-                                                  <div class="form-group">
-                                                      <label for="exampleInputEmail1">Email address</label>
-                                                      <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="exampleInputPassword1">Password</label>
-                                                      <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="exampleInputFile">File input</label>
-                                                      <input type="file" id="exampleInputFile3">
-                                                      <p class="help-block">Example block-level help text here.</p>
-                                                  </div>
-                                                  <div class="checkbox">
-                                                      <label>
-                                                          <input type="checkbox"> Check me out
-                                                      </label>
-                                                  </div>
-                                                  <button type="submit" class="btn btn-default">Submit</button>
-                                              </form>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-1" class="modal fade">
-                                  <div class="modal-dialog">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                              <h4 class="modal-title">Form Tittle</h4>
-                                          </div>
-                                          <div class="modal-body">
-
-                                              <form class="form-horizontal" role="form">
-                                                  <div class="form-group">
-                                                      <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Email</label>
-                                                      <div class="col-lg-10">
-                                                          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">Password</label>
-                                                      <div class="col-lg-10">
-                                                          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <div class="col-lg-offset-2 col-lg-10">
-                                                          <div class="checkbox">
-                                                              <label>
-                                                                  <input type="checkbox"> Remember me
-                                                              </label>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <div class="col-lg-offset-2 col-lg-10">
-                                                          <button type="submit" class="btn btn-default">Sign in</button>
-                                                      </div>
-                                                  </div>
-                                              </form>
-
-                                          </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2" class="modal fade">
-                                  <div class="modal-dialog">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                              <h4 class="modal-title">Form Tittle</h4>
-                                          </div>
-                                          <div class="modal-body">
-                                              <form class="form-inline" role="form">
-                                                  <div class="form-group">
-                                                      <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                      <input type="email" class="form-control sm-input" id="exampleInputEmail2" placeholder="Enter email">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                      <input type="password" class="form-control sm-input" id="exampleInputPassword2" placeholder="Password">
-                                                  </div>
-                                                  <div class="checkbox">
-                                                      <label>
-                                                          <input type="checkbox"> Remember me
-                                                      </label>
-                                                  </div>
-                                                  <button type="submit" class="btn btn-default">Sign in</button>
-                                              </form>
-
-                                          </div>
-
-                                      </div>
-                                  </div>
-                              </div>
                           </div>
                       </section>
                   </div>
@@ -690,6 +587,8 @@
 
     <!--common script for all pages-->
     <script src="../../../static/js/common-scripts.js"></script>
+  <!--this page  script only-->
+  <script src="../../../static/js/advanced-form-components.js"></script>
 
 
 

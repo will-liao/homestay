@@ -26,9 +26,14 @@ public class AdditionalFees implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 附加物品id
+     */
+    @TableId(value = "additional_id", type = IdType.AUTO)
+    private Integer additionalId;
+
+    /**
      * 房间id
      */
-    @TableId(value = "room_id", type = IdType.AUTO)
     private Integer roomId;
 
     /**

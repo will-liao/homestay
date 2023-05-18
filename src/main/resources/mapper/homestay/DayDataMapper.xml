@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.will.homestay.mapper.AdmFeedbackMapper">
-
+<mapper namespace="com.will.homestay.mapper.DayDataMapper">
+    <!--计算本日订单量-->
+    <select id="dayOrder" resultType="Integer">
+        SELECT COUNT(*) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (DATE(tb_order_detail.`start_time`) = DATE(NOW()))
+    </select>
+    <select id="dayIncome" resultType="BigDecimal">
+        <!--计算本日收入-->
+        SELECT SUM(tb_order_detail.`pay`) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (DATE(tb_order_detail.`start_time`) = DATE(NOW()))
+    </select>
+    <select id="dayLiving" resultType="Integer">
+        <!--计算本日入住人数-->
+        SELECT COUNT(*) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (DATE(tb_order_detail.`start_time`) = DATE(NOW()))
+    </select>
 </mapper>

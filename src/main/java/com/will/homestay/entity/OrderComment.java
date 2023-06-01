@@ -51,5 +51,8 @@ public class OrderComment implements Serializable {
      */
     private LocalDateTime time;
 
-
+    /**
+     * 评分
+     */
+    private Double rate;
 }

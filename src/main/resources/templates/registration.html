@@ -8,8 +8,21 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="../../../static/img/favicon.png">
 
-    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+    <title>注册</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="../../../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-fileupload/bootstrap-fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-datepicker/css/datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-timepicker/compiled/timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../static/assets/jquery-multi-select/css/multi-select.css" />
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
@@ -18,19 +31,69 @@
     <!-- Custom styles for this template -->
     <link href="../../../static/css/style.css" rel="stylesheet">
     <link href="../../../static/css/style-responsive.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var loadImageFile = (function() {
+            if (window.FileReader) {
+                var oPreviewImg = null, oFReader = new window.FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../../../static/js/html5shiv.js"></script>
-    <script src="../../../static/js/respond.min.js"></script>
-    <![endif]-->
+                oFReader.onload = function(oFREvent) {
+                    if (!oPreviewImg) {
+                        var newPreview = document.getElementById("imagePreview");
+                        oPreviewImg = new Image();
+                        oPreviewImg.style.width = (200)
+                                .toString()
+                            + "px";
+                        oPreviewImg.style.height = (newPreview.offsetHeight)
+                                .toString()
+                            + "px";
+                        if(newPreview.childNodes.length != 0){
+                            newPreview.removeChild(document.getElementById("imgid"));
+                        }
+                        newPreview.appendChild(oPreviewImg);
+                    }
+                    oPreviewImg.src = oFREvent.target.result;
+                };
+
+                return function() {
+                    var aFiles = document.getElementById("imageInput").files;
+                    if (aFiles.length === 0) {
+                        return;
+                    }
+                    if (!rFilter.test(aFiles[0].type)) {
+                        alert("You must select a valid image file!");
+                        return;
+                    }
+                    oFReader.readAsDataURL(aFiles[0]);
+                }
+
+            }
+            if (navigator.appName === "Microsoft Internet Explorer") {
+                return function() {
+                    alert(document.getElementById("imageInput").value);
+                    document.getElementById("imagePreview").filters
+                        .item("DXImageTransform.Microsoft.AlphaImageLoader").src = document
+                        .getElementById("imageInput").value;
+
+                }
+            }
+        })();
+    </script>
+    <script type="text/javascript">
+        function showPingZheng() {
+            document.getElementById("PingZheng").style.display = "block";
+        }
+
+        function hiddenPingZheng() {
+            document.getElementById("PingZheng").style.display = "none";
+        }
+    </script>
 </head>
 
   <body class="login-body">
 
     <div class="container">
 
-      <form class="form-signin" th:action="@{/homestay/user/register}" method="post">
+      <form class="form-signin" th:action="@{/homestay/user/register}" method="post" enctype="multipart/form-data">
         <h2 class="form-signin-heading">立即注册</h2>
           <h4 style="color: red;text-align: center" th:text="${message.getMessage()}"></h4>
         <div class="login-wrap">
@@ -53,13 +116,27 @@
 
             <div class="radios">
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-03">
-                    <input name="userType" id="radio-03" value="0" type="radio" th:value="ROLE_COMMON" checked /> 普通用户
+                    <input name="userType" id="radio-03" value="0" type="radio" th:value="ROLE_COMMON" checked onclick="hiddenPingZheng()" /> 普通用户
                 </label>
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-04">
-                    <input name="userType" id="radio-04" value="1" type="radio" th:value="ROLE_LANDLORD" /> 房东
+                    <input name="userType" id="radio-04" value="1" type="radio" th:value="ROLE_LANDLORD" onclick="showPingZheng()" /> 房东
                 </label>
-            </div>
 
+            </div>
+            <div class="form-group" id="PingZheng"  style="display:none">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail"  id="imagePreview"  style="width: 200px; height: 150px;">
+                        <img id="imgid" src="../../../static/img/500_icon.png" alt="" />
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                    <div>
+                                                   <span class="btn btn-white btn-file">
+                                                   <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择凭证</span>
+                                                   <input id="imageInput" onchange="loadImageFile();" name="file" type="file" class="default" />
+                                                   </span>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-lg btn-login btn-block" type="submit">提交</button>
 
             <div class="registration" style="text-align: right" >

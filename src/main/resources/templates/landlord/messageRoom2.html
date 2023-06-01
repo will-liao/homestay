@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="../../../static/img/favicon.png">
+
+    <title>我的消息</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../static/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="../../../static/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../../../static/css/owl.carousel.css" type="text/css">
+
+    <!--right slidebar-->
+    <link href="../../../static/css/slidebars.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="../../../static/css/style.css" rel="stylesheet">
+    <link href="../../../static/css/style-responsive.css" rel="stylesheet" />
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../../static/js/html5shiv.js"></script>
+      <script src="../../../static/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+  <section id="container" >
+      <!--header start-->
+      <header class="header white-bg">
+              <div class="sidebar-toggle-box">
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+              </div>
+            <!--logo start-->
+          <a href="#" class="logo"><span>欢迎光临</span>伴城民宿！</a>
+            <!--logo end-->
+          <div class="top-nav ">
+              <!--search & user info start-->
+              <ul class="nav pull-right top-menu">
+                  <!-- user login dropdown start-->
+                  <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <img alt=""  style="width: 29px;height: 29px" th:src="@{/pic/}+${user.getUserPic()}">
+                          <span class="username" th:text="${user.getUsername()}"></span>
+                          <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu extended logout">
+                          <div class="log-arrow-up"></div>
+                          <li><a th:href="@{/logout}"><i class="fa fa-key"></i> Log Out</a></li>
+                      </ul>
+                  </li>
+                  <!-- user login dropdown end -->
+              </ul>
+              <!--search & user info end-->
+          </div>
+        </header>
+      <!--header end-->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+                  <li>
+                      <a th:href="@{/homestay/user/toLandlord-user-index}">
+                          <i class="fa fa-dashboard"></i>
+                          <span>首页</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-laptop"></i>
+                          <span>房屋管理</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  th:href="@{/homestay/room/toRoomList}">我的房屋</a></li>
+                          <li><a  th:href="@{/homestay/room/toUploadRoom}">上传房屋</a></li>
+                          <li><a  th:href="@{/homestay/additional-fees/toAdditional}">附加物品</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a th:href="@{/homestay/order/showOrdersbyLandlordId}" >
+                          <i class="fa fa-book"></i>
+                          <span>订单管理</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="#"  class="active">
+                          <i class="fa fa-cogs"></i>
+                          <span>我的消息</span>
+                      </a>
+                  </li>
+
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper site-min-height">
+              <!-- page start-->
+              <div class="chat-room">
+                  <aside class="left-side">
+                      <div class="user-head">
+                          <i class="fa fa-comments-o"></i>
+                          <h3>消息</h3>
+                      </div>
+                      <ul class="chat-list">
+                          <li>
+                              <a class="lobby" href="#">
+                                  <h4>
+                                      <i class="fa fa-list"></i>
+                                      消息大厅
+                                  </h4>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/getMessage">
+                                  <i class="fa fa-rocket"></i>
+                                  <span>管理员</span>
+                              </a>
+                          </li>
+                          <li class="active">
+                              <a href="#">
+                                  <i class="fa fa-rocket"></i>
+                                  <span>租客</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </aside>
+                  <aside class="mid-side">
+                      <div class="chat-room-head">
+                          <h3>消息内容</h3>
+                      </div>
+                      <div class="room-desk">
+                          <div class="room-box" th:each="comment:${comments}">
+                              <h5 class="text-primary"><a href="#">房间评论</a></h5>
+                              <p th:text="${comment.getContent() + '   #民宿名称：' + comment.getRoomAddress()}"></p>
+                              <p>
+                                  <span class="text-muted">user :</span> <span th:text="${comment.getUsername()}"></span> |
+                                  &nbsp;<span class="text-muted">comment time:<span
+                                      th:text="${#dates.format(comment.getTime(),'yyyy-MM-dd mm:hh:ss')}"></span> </span>
+                                  <button class="btn btn-danger btn-xs">
+                                      <i>
+                                          <a href="#"  th:data-target="'#myModal-' + ${comment.getOrderId()}" data-toggle="modal" style="color: #FFFFFF">
+                                              回复
+                                          </a>
+                                      </i>
+                                  </button>
+                              </p>
+                              <div th:if="${comment.getFeedbackContent()!=null}" th:text="'回复：' + ${comment.getFeedbackContent()}"></div>
+                              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+                                   th:id="'myModal-' + ${comment.getOrderId()}" class="modal fade">
+                                  <div class="modal-dialog">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h4 class="modal-title">请输入您的回复</h4>
+                                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form role="form" method="post" th:action="@{/homestay/adm-feedback/reply}">
+                                                  <input hidden="hidden" name="orderId" th:value="${comment.getOrderId()}">
+                                                  <!--评分-->
+                                                  <div class="form-group">
+                                                      <label class="control-label" for="roomDescrible">回复内容</label>
+                                                      <textarea class="form-control" name="feedbackContent" id="roomDescrible" rows="3"
+                                                                placeholder="请输入文字进行回复"></textarea>
+                                                  </div>
+                                                  <button type="submit" class="btn btn-default col-lg-offset-5">回复</button>
+                                              </form>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </aside>
+              </div>
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="../../../static/js/jquery.js"></script>
+    <script src="../../../static/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="../../../static/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="../../../static/js/jquery.scrollTo.min.js"></script>
+    <script src="../../../static/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="../../../static/js/jquery.sparkline.js" type="text/javascript"></script>
+    <script src="../../../static/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+    <script src="../../../static/js/owl.carousel.js" ></script>
+    <script src="../../../static/js/jquery.customSelect.min.js" ></script>
+    <script src="../../../static/js/respond.min.js" ></script>
+
+    <!--right slidebar-->
+    <script src="../../../static/js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="../../../static/js/common-scripts.js"></script>
+
+    <!--script for this page-->
+    <script src="../../../static/js/sparkline-chart.js"></script>
+    <script src="../../../static/js/easy-pie-chart.js"></script>
+    <script src="../../../static/js/count.js"></script>
+
+  <script>
+
+      //owl carousel
+
+      $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+              navigation : true,
+              slideSpeed : 300,
+              paginationSpeed : 400,
+              singleItem : true,
+			  autoPlay:true
+
+          });
+      });
+
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+      $(window).on("resize",function(){
+          var owl = $("#owl-demo").data("owlCarousel");
+          owl.reinit();
+      });
+  </script>
+  <!--<script>
+      //实时获取数据
+      setInterval(function() {
+          $.ajax({
+              url: '/homestay/adm-feedback/getFeedback',
+              method: 'GET',
+              success: function(data) {
+                  // 将数据写到id为showMessage的div中
+                  $('#showMessage').html(data);
+                  console.log(data);
+                  console.log("success");
+              },
+              error: function(xhr, status, error) {
+                  // 处理错误
+                  //将’欢迎使用伴城民宿公寓出租系统‘写到id为showMessage的div中
+                  console.log("error");
+                  $('#showMessage').html('欢迎使用伴城民宿公寓出租系统');
+              }
+          });
+      }, 0);
+  </script>-->
+
+  </body>
+</html>

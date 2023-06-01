@@ -24,5 +24,11 @@ public class RounterController {
         mv.setViewName("registration");
         return mv;
     }
+    @RequestMapping("/navigate")
+    public ModelAndView navigate(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("gaodeMap");
+        return mv;
+    }
 
 }

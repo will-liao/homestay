@@ -1,5 +1,7 @@
 package com.will.homestay.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.will.homestay.entity.Message;
 import com.will.homestay.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,9 +25,9 @@ public interface UserService extends IService<User> {
     Message updateUser(User user, MultipartFile pic);
     User getUserById(int userId);
     //获取所有房东用户
-    List<User> getAllLandlord();
+    IPage<User> getAllLandlord(Page page);
     //获取所有租客用户
-    List<User> getAllTenant();
+    IPage<User> getAllTenant(Page page);
     //删除用户
     Message deleteUser(int userId);
 }

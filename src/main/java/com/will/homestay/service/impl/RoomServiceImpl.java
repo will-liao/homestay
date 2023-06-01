@@ -2,6 +2,8 @@ package com.will.homestay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.will.homestay.entity.Message;
 import com.will.homestay.entity.Room;
 import com.will.homestay.mapper.OrderDetailMapper;
@@ -81,6 +83,11 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     }
 
     @Override
+    public Page<Room> queryAllRoom(Page page) {
+        return roomMapper.selectPage(page,null);
+    }
+
+    @Override
     public List<Room> queryRoomsOrderByPriceDesc() {
         //mybatis-puls查询所有民宿，并根据民宿价格降序排序
         QueryWrapper wrapper = new QueryWrapper();
@@ -102,6 +109,11 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     public List<Room> bestSellTop(int num) {
         //mybatis-puls查询订单表，根据民宿id分组，统计每个民宿的销量，根据销量降序排序，并展示前六个民宿
         return roomMapper.bestSellTop(num);
+    }
+
+    @Override
+    public List<Room> bestRate(int number) {
+        return roomMapper.bestRate(number);
     }
 
     @Override
@@ -155,6 +167,19 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
     @Override
     public List<Room> filterRoom(String roomType, double minPrice, double maxPrice, Date startTime, Date endTime) {
         return roomMapper.filterRoom(roomType,minPrice,maxPrice,startTime,endTime);
+    }
+
+    @Override
+    public Boolean judgeBook(int roomId, Date startTime, Date endTime) {
+        List<Room> rooms = roomMapper.judgeBook(startTime, endTime);
+        for (Room room : rooms) {
+            if (room.getRoomId()==roomId){
+                System.out.println("可用");
+                return false;
+            }
+
+        }
+        return true;
     }
 
 }

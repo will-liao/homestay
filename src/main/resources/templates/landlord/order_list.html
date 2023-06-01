@@ -12,7 +12,7 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>Mega Menu</title>
+    <title>订单列表</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
@@ -48,40 +48,13 @@
 <body class="mega-nav">
 
 <section id="container" class="">
-    <!--header start-->
     <header class="header white-bg">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="fa fa-bars"></span>
-            </button>
-
-            <!--logo start-->
-            <a href="../manager/index.html" class="logo"><span>欢迎光临</span>伴城民宿！</a>
-            <!--logo end-->
-            <div class="container">
-                <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
-                    <ul class="nav navbar-nav">
-                        <!-- Classic list -->
-                        <li class="active"><a th:href="@{/homestay/user/toCommon-user-index}">首页 </a>
-                        </li>
-                        <!-- Accordion demo -->
-                        <li><a href="#">订单信息 </a>
-                        </li>
-                        <!-- Classic dropdown -->
-                        <li><a th:href="@{/homestay/desire/showMyDesires}">心愿单 </a>
-                        </li>
-                        <!-- Pictures -->
-                        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">个人信息 </a>
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/homestay/user/self-message}"> 账号信息 </a></li>
-                                <li><a tabindex="-1" href="#"> 修改密码 </a></li>
-                                <li><a tabindex="-1" href="#"> 我的评论 </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="sidebar-toggle-box">
+            <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
         </div>
+        <!--logo start-->
+        <a href="#" class="logo"><span>欢迎光临</span>伴城民宿！</a>
+        <!--logo end-->
         <div class="top-nav ">
             <!--search & user info start-->
             <ul class="nav pull-right top-menu">
@@ -103,6 +76,46 @@
         </div>
     </header>
     <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a th:href="@{/homestay/user/toLandlord-user-index}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;" class="active">
+                        <i class="fa fa-laptop"></i>
+                        <span>房屋管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li class="active"><a  th:href="@{/homestay/room/toRoomList}">我的房屋</a></li>
+                        <li><a  th:href="@{/homestay/room/toUploadRoom}">上传房屋</a></li>
+                        <li><a  th:href="@{/homestay/additional-fees/toAdditional}">附加物品</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a th:href="@{/homestay/order/showOrdersbyLandlordId}" >
+                        <i class="fa fa-book"></i>
+                        <span>订单管理</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="/getMessage" >
+                        <i class="fa fa-book"></i>
+                        <span>我的消息</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
     <!--main content start-->
     <br>
     <br>

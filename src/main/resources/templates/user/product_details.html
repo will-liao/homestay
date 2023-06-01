@@ -8,7 +8,7 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="../../../static/img/favicon.png">
 
-    <title>Product details list</title>
+    <title>民宿详情</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,8 @@
       <script src="../../../static/js/html5shiv.js"></script>
       <script src="../../../static/js/respond.min.js"></script>
     <![endif]-->
+
+
   </head>
 
   <body>
@@ -66,9 +68,12 @@
                                   <div class="product_meta">
                                       <span class="posted_in"> <strong>房间类型:</strong> <a rel="tag" href="#" th:text="${room.getRoomType()}"></a>.</span>
                                       <span class="tagged_as"><strong>房间大小:</strong> <a rel="tag" href="#" th:text="${room.getRoomSize()}+'㎡'"></a>.</span>
+                                      <span class="tagged_as"><strong>平均得分:</strong> <a rel="tag" href="#" th:text="${avg_rate}+分"></a>.</span>
+                                      <span class="tagged_as"><strong>地图显示:</strong> <a rel="tag" th:href="@{/navigate}" >地图位置</a></span>
                                   </div>
                                   <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">$544</span>  <span class="pro-price" id="price" th:text="${room.getRoomPrice()}"></span></div>
-                                  <form role="form" method="post" th:action="@{/homestay/order-detail/orderRoom}">
+                                  <!--如果是普通用户就显示表单-->
+                                  <form th:if="${user.getUserType().equals('ROLE_COMMON')}" role="form" method="post" th:action="@{/homestay/order-detail/conform}">
                                       <div class="form-group">
                                           <label class="control-label">入住时间</label>
                                           <div>
@@ -92,7 +97,7 @@
                                           </div>
                                           <br>
                                           <p>
-                                              <button class="btn btn-round btn-danger" type="submit"><i class="fa fa-cny (alias)"></i> 订购并支付</button>
+                                              <button class="btn btn-round btn-danger" type="submit"><i class="fa fa-cny (alias)"></i> 订购</button>
                                           </p>
                                       </div>
                                   </form>

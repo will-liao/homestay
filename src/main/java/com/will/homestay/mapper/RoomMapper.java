@@ -17,6 +17,8 @@ import java.util.List;
  */
 public interface RoomMapper extends BaseMapper<Room> {
     List<Room> filterRoom(String roomType, double minPrice, double maxPrice, Date startTime, Date endTime);
+    List<Room> judgeBook( Date startTime, Date endTime);
 
     List<Room> bestSellTop(int number);
+    List<Room> bestRate(int number);
 }

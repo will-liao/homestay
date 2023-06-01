@@ -12,7 +12,7 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>个人消息</title>
+    <title>Mega Menu</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
@@ -62,7 +62,7 @@
             </button>
 
             <!--logo start-->
-            <a href="#" class="logo"><span>欢迎光临</span>伴城民宿！</a>
+            <a href="../manager/index.html" class="logo"><span>欢迎光临</span>伴城民宿！</a>
             <!--logo end-->
             <div class="container">
                 <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
@@ -79,8 +79,9 @@
                         <!-- Pictures -->
                         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">个人信息 </a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/homestay/user/self-message}"> 账号信息 </a></li>
-                                <li><a tabindex="-1" th:href="@{/homestay/user/toResetMessage}"> 修改信息 </a></li>
+                                <li><a tabindex="-1" href="#"> 账号信息 </a></li>
+                                <li><a tabindex="-1" href="#"> 修改密码 </a></li>
+                                <li><a tabindex="-1" href="#"> 我的评论 </a></li>
                             </ul>
                         </li>
                     </ul>

@@ -1,13 +1,9 @@
 package com.will.homestay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.will.homestay.entity.Message;
 import com.will.homestay.entity.User;
-import com.will.homestay.mapper.RoomMapper;
 import com.will.homestay.mapper.UserMapper;
-import com.will.homestay.service.OverviewService;
 import com.will.homestay.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +31,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     UserMapper userMapper;
-    @Autowired
-    RoomMapper roomMapper;
     @Override
     public User selectUserByUsername(String username) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -50,7 +44,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Message message = new Message();
         int insert = userMapper.insert(user);
-
         if (insert==0)
             message.setMessage("注册失败！");
         else message.setMessage("用户注册成功！");
@@ -92,45 +85,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public IPage<User> getAllLandlord(Page page) {
+    public List<User> getAllLandlord() {
         //获取所有房东用户
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("user_type","ROLE_LANDLORD");
-        return userMapper.selectPage(page,queryWrapper);
+        return userMapper.selectList(queryWrapper);
     }
 
     @Override
-    public IPage<User> getAllTenant(Page page) {
+    public List<User> getAllTenant() {
         //获取所有房东用户
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("user_type","ROLE_COMMON");
-
-        return userMapper.selectPage(page, queryWrapper);
+        return userMapper.selectList(queryWrapper);
     }
 
     @Override
     public Message deleteUser(int userId) {
         Message message = new Message();
-        User user = userMapper.selectById(userId);
-        //如果是房东，则删除所有房东id为该房东的的民宿房间
-        if (user.getUserType().equals("ROLE_LANDLORD")){
-            //删除该房东的所有房间
-            System.out.println("删除房东");
-            QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("landlord_id",userId);
-            int deleteLandlord = userMapper.deleteById(userId);
-            int deleteRoom = roomMapper.delete(queryWrapper);
-            if (deleteLandlord == 0)
-                message.setMessage("删除房东失败！");
-            else message.setMessage("删除房东成功！该房东的"+deleteRoom+"个房间被删除");
-            return message;
-        }else {
-            System.out.println("删除租客");
-            int delete = userMapper.deleteById(userId);
-            if (delete == 0)
-                message.setMessage("删除租客失败！");
-            else message.setMessage("删除租客成功！");
-            return message;
-        }
+        int delete = userMapper.deleteById(userId);
+        if (delete==0)
+            message.setMessage("删除失败！");
+        else message.setMessage("删除成功！");
+        return message;
     }
 }

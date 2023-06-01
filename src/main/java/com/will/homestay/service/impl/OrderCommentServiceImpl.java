@@ -1,12 +1,9 @@
 package com.will.homestay.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.will.homestay.entity.Message;
 import com.will.homestay.entity.OrderComment;
 import com.will.homestay.mapper.OrderCommentMapper;
-import com.will.homestay.pojo.Avg_rate;
 import com.will.homestay.pojo.ShowComments;
-import com.will.homestay.pojo.ShowLandlordComments;
 import com.will.homestay.service.OrderCommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,29 +35,7 @@ public class OrderCommentServiceImpl extends ServiceImpl<OrderCommentMapper, Ord
     }
 
     @Override
-    public OrderComment queryCommentByOrderId(Integer orderId) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("order_id",orderId);
-        return commentMapper.selectCount(wrapper)>0?commentMapper.selectOne(wrapper):null;
-    }
-
-    @Override
-    public List<ShowLandlordComments> getComments(int landlordId) {
-        return commentMapper.getComments(landlordId);
-    }
-
-    @Override
     public List<ShowComments> getRoomComment(int roomId) {
         return commentMapper.getRoomComment(roomId);
-    }
-
-    @Override
-    public Double avg_rate(int roomId) {
-        return commentMapper.avg_rate(roomId);
-    }
-
-    @Override
-    public List<Avg_rate> avg_allRoom() {
-        return commentMapper.avg_allRoom();
     }
 }

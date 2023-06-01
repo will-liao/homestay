@@ -12,7 +12,7 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>订单列表</title>
+    <title>Mega Menu</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
             </button>
 
             <!--logo start-->
-            <a href="#" class="logo"><span>欢迎光临</span>伴城民宿！</a>
+            <a href="../manager/index.html" class="logo"><span>欢迎光临</span>伴城民宿！</a>
             <!--logo end-->
             <div class="container">
                 <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
@@ -74,7 +74,8 @@
                         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">个人信息 </a>
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/homestay/user/self-message}"> 账号信息 </a></li>
-                                <li><a tabindex="-1" th:href="@{/homestay/user/toResetMessage}"> 修改信息 </a></li>
+                                <li><a tabindex="-1" href="#"> 修改密码 </a></li>
+                                <li><a tabindex="-1" href="#"> 我的评论 </a></li>
                             </ul>
                         </li>
                     </ul>
@@ -157,14 +158,9 @@
                                     <form role="form" method="post" th:action="@{/homestay/order-comment/comment}">
                                         <input hidden="hidden" name="orderId" th:value="${order.getOrderId()}">
                                         <input hidden="hidden" name="userId" th:value="${order.getUserId()}">
-                                        <!--评分-->
-                                        <div class="form-group">
-                                            <label class="control-label" for="rate">综合评分</label>
-                                            <input class="form-control" name="rate" id="rate" placeholder="请输入您的评分，满分5分"></input>
-                                        </div>
                                         <div class="form-group">
                                             <label class="control-label" for="roomDescrible">我的评论</label>
-                                            <textarea class="form-control" name="comment" id="roomDescrible" rows="3" placeholder="请输入文字进行评论"></textarea>
+                                            <textarea class="form-control" name="content" id="roomDescrible" rows="3" placeholder="请输入文字进行评论"></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-default col-lg-offset-5">评论</button>
                                     </form>

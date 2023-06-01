@@ -12,7 +12,7 @@
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>首页</title>
+    <title>Mega Menu</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../../static/css/bootstrap.min.css" rel="stylesheet">
@@ -75,6 +75,7 @@
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/homestay/user/self-message}"> 账号信息 </a></li>
                                 <li><a tabindex="-1" th:href="@{/homestay/user/toResetMessage}"> 修改信息 </a></li>
+                                <li><a tabindex="-1" href="#"> 我的评论 </a></li>
                             </ul>
                         </li>
                     </ul>
@@ -213,7 +214,6 @@
                                     <option value="0">价格从高到低</option>
                                     <option value="1">价格从低到高</option>
                                     <option value="2">销量</option>
-                                    <option value="3">综合评分</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-success">确定</button>

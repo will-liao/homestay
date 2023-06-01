@@ -47,9 +47,5 @@ public class AdmFeedback implements Serializable {
      */
     private Date feedbackTime;
 
-    /**
-     * 订单id
-     */
-    private Integer orderId;
 
 }

@@ -48,7 +48,6 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
             return message;
         }
 
-
         //填充订单信息
         order.setUserId(userId);
         order.setOrderCondition(false);

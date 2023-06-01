@@ -61,24 +61,4 @@ public class OverviewServiceImpl extends ServiceImpl<OverviewMapper, Overview> i
     public Overview getOverview() {
         return overviewMapper.selectById(1);
     }
-
-    @Override
-    public Integer totalRoomByLandlordId(Integer landlordId) {
-        return overviewMapper.totalRoomByLandlordId(landlordId);
-    }
-
-    @Override
-    public BigDecimal totalIncomeByLandlordId(Integer landlordId) {
-        return overviewMapper.totalIncomeByLandlordId(landlordId);
-    }
-
-    @Override
-    public Integer totalOrderByLandlordId(Integer landlordId) {
-        return overviewMapper.totalOrderByLandlordId(landlordId);
-    }
-
-    @Override
-    public Integer totalUserByLandlordId(Integer landlordId) {
-        return overviewMapper.totalUserByLandlordId(landlordId);
-    }
 }

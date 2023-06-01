@@ -29,9 +29,4 @@ public interface OverviewService extends IService<Overview> {
     Integer totalRoom();
 
     Overview getOverview();
-
-    Integer totalRoomByLandlordId(Integer landlordId);
-    BigDecimal totalIncomeByLandlordId(Integer landlordId);
-    Integer totalOrderByLandlordId(Integer landlordId);
-    Integer totalUserByLandlordId(Integer landlordId);
 }

@@ -14,28 +14,17 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-
-  #redis配置
+      # 配置MyBatis日志
   data:
     redis:
       host: localhost
       port: 6379
       database: 0
       password: lzh01081172
-  #热部署配置
-  devtools:
-    restart:
-      enabled: true
-
-# 配置MyBatis日志
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-#文件映射
 file:
   staticAcessPath: '/pic/**'
   uploadFileFolder: 'E:/file/'
-
-
-

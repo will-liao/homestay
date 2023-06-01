@@ -22,20 +22,4 @@
     <select id="totalRoom" resultType="Integer">
         SELECT COUNT(*) FROM tb_room
     </select>
-    <!--计算某房东的总房间数-->
-    <select id="totalRoomByLandlordId" resultType="Integer">
-        SELECT COUNT(*) FROM tb_room WHERE (tb_room.`landlord_id` = #{landlordId})
-    </select>
-    <!--计算某房东的总收入-->
-    <select id="totalIncomeByLandlordId" resultType="BigDecimal">
-        SELECT SUM(tb_order_detail.`pay`) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (tb_order_detail.`room_id` IN (SELECT tb_room.`room_id` FROM tb_room WHERE (tb_room.`landlord_id` = #{landlordId})))
-    </select>
-    <!--计算某房东的总订单量-->
-    <select id="totalOrderByLandlordId" resultType="Integer">
-        SELECT COUNT(*) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (tb_order_detail.`room_id` IN (SELECT tb_room.`room_id` FROM tb_room WHERE (tb_room.`landlord_id` = #{landlordId})))
-    </select>
-    <!--计算某房东的总租用人数-->
-    <select id="totalUserByLandlordId" resultType="Integer">
-        SELECT COUNT(*) FROM tb_order_detail WHERE (tb_order_detail.`order_condition` = 1) AND (tb_order_detail.`room_id` IN (SELECT tb_room.`room_id` FROM tb_room WHERE (tb_room.`landlord_id` = #{landlordId})))
-    </select>
 </mapper>

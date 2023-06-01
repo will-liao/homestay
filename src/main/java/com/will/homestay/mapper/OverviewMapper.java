@@ -28,4 +28,11 @@ public interface OverviewMapper extends BaseMapper<Overview> {
 
     Integer totalRoom();
 
+    Integer totalRoomByLandlordId(Integer landlordId);
+    BigDecimal totalIncomeByLandlordId(Integer landlordId);
+    Integer totalOrderByLandlordId(Integer landlordId);
+    Integer totalUserByLandlordId(Integer landlordId);
+
+
+
 }

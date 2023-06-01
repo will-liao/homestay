@@ -6,4 +6,25 @@
         FROM tb_order_comment,tb_order_detail,tb_room,tb_user
         WHERE tb_order_comment.`order_id` = tb_order_detail.`order_id` AND tb_order_detail.`room_id` =  #{roomId} AND tb_room.`room_id` = #{roomId} AND tb_user.`user_id` = tb_order_comment.`user_id`
     </select>
+    <!--根据房间id，和rate字段，计算出平均得分,返回值为双精度浮点类型-->
+    <select id="avg_rate" resultType="double">
+        SELECT AVG(tb_order_comment.`rate`)
+        FROM tb_order_comment,tb_order_detail,tb_room
+        WHERE tb_order_comment.`order_id` = tb_order_detail.`order_id` AND tb_order_detail.`room_id` =  #{roomId} AND tb_room.`room_id` = #{roomId}
+    </select>
+    <!--左连接tb_room,tb_order_comment，由rate字段，计算出所有房间的平均得分,返回值Avg_rate对象-->
+    <select id="avg_allRoom" resultType="com.will.homestay.pojo.Avg_rate">
+        SELECT tb_room.`room_id`,AVG(tb_order_comment.`rate`) AS avg_rate
+        FROM tb_room LEFT JOIN tb_order_detail ON (tb_room.`room_id` = tb_order_detail.`room_id`) LEFT JOIN tb_order_comment ON tb_order_detail.`order_id` = tb_order_comment.`order_id`
+        GROUP BY tb_room.`room_id`
+    </select>
+    <!--根据房东id，获取该房东的所有房间评论,tb_order_comment,tb_order_detail,tb_room,tb_user内连接，tb_adm_feedback表左外连接-->
+    <select id="getComments" resultType="com.will.homestay.pojo.ShowLandlordComments">
+        SELECT tb_order_detail.`order_id`,tb_room.`room_id`,tb_room.`room_address`,tb_user.`username`, tb_order_comment.`content`,tb_order_comment.`time`, tb_user.`user_pic` , tb_adm_feedback.`feedback_content`
+        FROM tb_order_comment inner join tb_order_detail on (tb_order_comment.`order_id` = tb_order_detail.`order_id`)
+            inner join tb_room on (tb_order_detail.`room_id` = tb_room.`room_id`)
+            inner join tb_user on (tb_user.`user_id` = tb_order_comment.`user_id`)
+            left join tb_adm_feedback on (tb_adm_feedback.`order_id` = tb_order_comment.`order_id`)
+        WHERE tb_room.`landlord_id` = #{landlordId}
+    </select>
 </mapper>

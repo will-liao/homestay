@@ -15,6 +15,10 @@ import java.util.List;
  */
 public interface AdmFeedbackService extends IService<AdmFeedback> {
     int insertFeedback(String feedback);
+    int insertFeedback(AdmFeedback feedback);
+    boolean whetherFeedback(Integer orderId);
+
+    int updateFeedback(AdmFeedback feedback);
 
     List<AdmFeedback> getFeedbacks();
 }

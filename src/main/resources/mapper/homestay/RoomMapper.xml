@@ -5,17 +5,61 @@
         SELECT distinct tb_room.*
         FROM tb_room
         LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
+        WHERE tb_room.room_type like concat('%',#{roomType},'%') AND(
+        tb_room.room_price >= #{minPrice} AND tb_room.room_price <![CDATA[<=]]> #{maxPrice})  AND
+        tb_room.`room_condition` = 0 AND
+        (tb_room.`room_id` NOT IN (
+        SELECT tb_room.`room_id`
+        FROM tb_order_detail
+        WHERE ((
+        <if test="startTime!=null and endTime != null">
+            #{startTime}>=tb_order_detail.`start_time` AND #{startTime} <![CDATA[<=]]> tb_order_detail.`end_time`) or
+            (#{endTime}>=tb_order_detail.`start_time` AND #{endTime}<![CDATA[<=]]>tb_order_detail.`end_time`))
+        </if>
+        )
+        )
+        <!--SELECT distinct tb_room.*
+        FROM tb_room
+        LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
         WHERE
-            tb_room.room_type like concat('%',#{roomType}) AND(
+            tb_room.room_type like concat('%',#{roomType},'%') AND(
                     tb_room.room_price >= #{minPrice} AND tb_room.room_price <![CDATA[<=]]> #{maxPrice})  AND
+        (
+        <if test="startTime!=null and endTime != null">
+            (#{startTime} <![CDATA[<]]> tb_order_detail.`end_time` AND #{endTime}<![CDATA[<]]>tb_order_detail.`start_time`)
+            OR (#{startTime} > tb_order_detail.`end_time` AND #{endTime}> tb_order_detail.`end_time`))
+        </if>-->
+    </select>
+    <select id="judgeBook" resultType="com.will.homestay.entity.Room">
+        SELECT distinct tb_room.*
+        FROM tb_room
+        LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
+        WHERE
+        tb_room.`room_condition` = 0 AND
+        (tb_room.`room_id` NOT IN (
+        SELECT tb_room.`room_id`
+        FROM tb_order_detail
+        WHERE ((
+        <if test="startTime!=null and endTime != null">
+            #{startTime}>=tb_order_detail.`start_time` AND #{startTime} <![CDATA[<=]]> tb_order_detail.`end_time`) or
+            (#{endTime}>=tb_order_detail.`start_time` AND #{endTime}<![CDATA[<=]]>tb_order_detail.`end_time`))
+        </if>
+        )
+        )
+    </select>
+    <!--<select id="judgeBook" resultType="com.will.homestay.entity.Room">
+        SELECT distinct tb_room.*
+        FROM tb_room
+        LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
+        WHERE
         tb_room.`room_id` NOT IN (
         SELECT tb_room.`room_id`
         FROM tb_order_detail
-        WHERE (
+        WHERE tb_order_detail.order_condition = 0 AND(
         <if test="startTime!=null and endTime != null">
-                #{startTime}>=tb_order_detail.`start_time` AND #{startTime} <![CDATA[<=]]> tb_order_detail.`end_time`) or (#{endTime}>=tb_order_detail.`start_time` AND #{endTime}<![CDATA[<=]]>tb_order_detail.`end_time`))
+            #{startTime}>=tb_order_detail.`start_time` AND #{startTime} <![CDATA[<=]]> tb_order_detail.`end_time`) or (#{endTime}>=tb_order_detail.`start_time` AND #{endTime}<![CDATA[<=]]>tb_order_detail.`end_time`))
         </if>
-    </select>
+    </select>-->
     <select id="bestSellTop" resultType="com.will.homestay.entity.Room">
         <!--查询订单表，根据民宿id分组，统计每个民宿的销量，根据销量降序排序，并展示前六个民宿-->
         SELECT tb_room.*
@@ -23,6 +67,14 @@
         LEFT JOIN tb_order_detail ON tb_room.room_id = tb_order_detail.room_id
         GROUP BY tb_room.room_id
         ORDER BY COUNT(tb_room.room_id) DESC
+        LIMIT #{number}
+    </select>
+    <select id="bestRate" resultType="com.will.homestay.entity.Room">
+        <!--左联合查询tb_room,tb_order_comment,tb_order_detail，根据民宿id和tb_order_comment表的rate字段计算每个民宿的平均得分，再根据平均得分降序排序-->
+        SELECT tb_room.*
+        FROM tb_room left join tb_order_detail on tb_room.room_id = tb_order_detail.room_id left join tb_order_comment on tb_order_detail.order_id = tb_order_comment.order_id
+        GROUP BY tb_room.room_id
+        ORDER BY AVG(tb_order_comment.rate) DESC
         LIMIT #{number}
     </select>
 </mapper>

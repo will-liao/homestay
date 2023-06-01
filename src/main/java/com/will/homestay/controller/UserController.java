@@ -1,7 +1,10 @@
 package com.will.homestay.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.will.homestay.entity.*;
+import com.will.homestay.pojo.ShowLandlord;
 import com.will.homestay.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.MessageListener;
@@ -18,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,12 +47,14 @@ public class UserController {
     OverviewService overviewService;
     @Autowired
     AdvertiseService advertiseService;
+    @Autowired
+    PingzhengService pingzhengService;
 
     @Autowired
     private RedisTemplate redisTemplate;
-    private String feedback= "？？？？";
+    private String feedback= "欢迎光临伴城民宿公寓出租系统";
     @RequestMapping("/toCommon-user-index")
-    public ModelAndView toCommonUserIndex(){
+    public ModelAndView toCommonUserIndex(@RequestParam(name = "pageNum",required = false ,defaultValue = "") Integer pageNum1){
         User user = userService.selectUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView mv = new ModelAndView();
         //展示所有房源
@@ -82,7 +89,14 @@ public class UserController {
         }, "admin".getBytes(StandardCharsets.UTF_8));
 
         mv.addObject("feedback", feedback);
-
+        Integer totalUser = overviewService.totalUserByLandlordId(user.getUserId());
+        Integer totalRoom = overviewService.totalRoomByLandlordId(user.getUserId());
+        BigDecimal totalIncome = overviewService.totalIncomeByLandlordId(user.getUserId());
+        Integer totalOrder = overviewService.totalOrderByLandlordId(user.getUserId());
+        mv.addObject("totalUser",totalUser);
+        mv.addObject("totalRoom",totalRoom);
+        mv.addObject("totalIncome",totalIncome);
+        mv.addObject("totalOrder",totalOrder);
         mv.addObject("user",user);
         mv.setViewName("/landlord/landlord-user-index");
         return mv;
@@ -102,8 +116,26 @@ public class UserController {
         return mv;
     }
     @RequestMapping("/register")
-    public ModelAndView register(User user){
-        Message registerMessage = userService.register(user);
+    public ModelAndView register(User user,@RequestParam("file")MultipartFile file){
+        Message registerMessage = new Message();
+        Overview overview = overviewService.getOverview();
+        if (user.getUserType().equals("ROLE_LANDLORD")){
+            registerMessage = userService.register(user);
+            Pingzheng pingzheng = new Pingzheng();
+            pingzheng.setUsername(user.getUsername());
+            pingzhengService.addPingZheng(pingzheng,file);
+
+
+            overview.setUserNum(overview.getUserNum()+1);
+            overview.setLandlordNum(overview.getLandlordNum()+1);
+
+        }else {
+            registerMessage = userService.register(user);
+
+            overview.setUserNum(overview.getUserNum()+1);
+        }
+        //更新概要数据
+        overviewService.updateOverview(overview);
         ModelAndView mv = new ModelAndView();
         mv.addObject("message",registerMessage);
         mv.setViewName("registration");
@@ -160,15 +192,40 @@ public class UserController {
 
     //获取普通用户和房东用户信息
     @RequestMapping("/getUsers")
-    public ModelAndView getUsers(){
+    public ModelAndView getUsers(@RequestParam(name = "pageNum1",required = false ,defaultValue = "1") Integer pageNum1,@RequestParam(name = "pageNum2",required = false ,defaultValue = "1") Integer pageNum2){
+        if (pageNum1<1){//判断分页的下界，上届的判断在前端页面处，若当前页大于总页数，则设置当前页为尾页
+            //pageInfo.getCurrent()<pageInfo.getPages()?pageInfo.getCurrent()+1:pageInfo.getPages()
+            pageNum1 = 1;
+        }
+        if (pageNum2<1){//判断分页的下界，上届的判断在前端页面处，若当前页大于总页数，则设置当前页为尾页
+            //pageInfo.getCurrent()<pageInfo.getPages()?pageInfo.getCurrent()+1:pageInfo.getPages()
+            pageNum2 = 1;
+        }
         //获取当前用户信息
         User user = userService.selectUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView mv = new ModelAndView();
-        List<User> tenants = userService.getAllTenant();
-        List<User> landlords = userService.getAllLandlord();
+        IPage<User> pageInfo1 = userService.getAllTenant(new Page(pageNum1, 3));
+        IPage<User> pageInfo2 = userService.getAllLandlord(new Page(pageNum2, 3));
+        List<User> tenants = pageInfo1.getRecords();
+        List<User> landlords1 = pageInfo2.getRecords();
+        List<Pingzheng> allPingZheng = pingzhengService.getAllPingZheng();
+        List<ShowLandlord> allLandlord = new ArrayList<>();
+        //封装房东信息
+        for (User landlord : landlords1) {
+            ShowLandlord showLandlord = new ShowLandlord();
+            showLandlord.setLandlord(landlord);
+            for (Pingzheng pingzheng : allPingZheng) {
+                if (pingzheng.getUsername().equals(landlord.getUsername())){
+                    showLandlord.setPingZheng(pingzheng.getPingzhengPic());
+                }
+            }
+            allLandlord.add(showLandlord);
+        }
+        mv.addObject("pageInfo1",pageInfo1);
+        mv.addObject("pageInfo2",pageInfo2);
         mv.addObject("user",user);
         mv.addObject("tenants",tenants);
-        mv.addObject("landlords",landlords);
+        mv.addObject("showLandlord",allLandlord);
         mv.setViewName("/manager/user-list");
         return mv;
     }
@@ -179,8 +236,13 @@ public class UserController {
         User user = userService.selectUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView mv = new ModelAndView();
         Message message = userService.deleteUser(userId);
-        List<User> tenants = userService.getAllTenant();
-        List<User> landlords = userService.getAllLandlord();
+        IPage<User> pageInfo1 = userService.getAllTenant(new Page(1, 3));
+        IPage<User> pageInfo2 = userService.getAllLandlord(new Page(1, 3));
+
+        List<User> tenants = pageInfo1.getRecords();
+        List<User> landlords = pageInfo2.getRecords();
+        mv.addObject("pageInfo1",pageInfo1);
+        mv.addObject("pageInfo2",pageInfo2);
         mv.addObject("user",user);
         mv.addObject("tenants",tenants);
         mv.addObject("landlords",landlords);
